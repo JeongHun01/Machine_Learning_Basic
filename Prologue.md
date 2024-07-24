@@ -1,10 +1,10 @@
 1. Supervised Learning vs Unsupervised Learning
 
-Supervised : 답이 정해진 데이터 분석을 토대로 새로운 데이터가 들어오면 어느 종류인지 판단
+Supervised : 답이 정해진 데이터 분석을 토대로 새로운 데이터가 들어오면 어느 종류인지 판단</br>
             ex. 개와 고양이 사진 학습 -> 고양이 사진 제시 -> 고양이로 판단
             Problem : Classification / Regression
 
-Unsupervised : 답이 존재하지 않는 데이터를 가지고 어떠한 기준을 가지고 데이터를 분류 후 새로운 데이터가 들어오면 이 기준에 따라 판단
+Unsupervised : 답이 존재하지 않는 데이터를 가지고 어떠한 기준을 가지고 데이터를 분류 후 새로운 데이터가 들어오면 이 기준에 따라 판단<br>
             ex. 데이터들을 보고 비슷한 동물들 끼리 모음 -> 새로운 동물 제시 -> 기존에 세운 분류에 따라 판단
             Problem : Clustering / Network analysis / Anomaly detection
 
@@ -24,7 +24,7 @@ Dataset = Traning data + Test data
 
 3. R vs Python
 
-R : 통계 전용 프로그램 언어로 다양하고 많은 통계 패키지를 보유
+R : 통계 전용 프로그램 언어로 다양하고 많은 통계 패키지를 보유 </br>
 Python : 개발 언어로 다양한 라이브러리 활용 가능 - 뛰어난 확장성, 연계, 호환성, 딥러닝 프레임워크 대부분이 파이썬 기준
 
     파이썬 패키지들
@@ -36,7 +36,7 @@ Python : 개발 언어로 다양한 라이브러리 활용 가능 - 뛰어난 �
 
 4. Overfitting / Underfitting
 
-Overfitting - 과대적합 : 분산이 높아지고 편향이 낮아지는 경향
+Overfitting - 과대적합 : 분산이 높아지고 편향이 낮아지는 경향 </br>
 Underfitting - 과소적합 : 분산이 낮아지고 편향이 높아지는 경향
 
 둘다 total error를 증가
