@@ -81,12 +81,12 @@ general한 정도가 너무 커지면 underfitting이 발생하기에 적절한 
 여러 개의 분류기(Classifier)를 생성하고 그 예측을 결합함으로써 보다 정확한 최종 예측을 도출하는 기법 -> 단일 모델의 약점을 다수 모델의 결합으로 보완</br>
 비슷한 모델이나 성능 우선보단 다른 유형의 모델을 섞는 것이 전체 성능에 도움이 될 수 있음 - sklearn.ensemble</br></br>
 
-#### **Voting**
+### **Voting**
 같은 데이터 set에 대해 서로 다른 알고리즘 분류기를 이용 - VotingClassfier()</br></br>
 **Hard Voting** : 다수의 Classifier간 다수결 투표로 최종 class 결정 </br>
 **Soft Voting** : 다수의 Classifier간 class 확률을 평균하여 결정 최종 class 결정
 
-#### **Bagging**
+### **Bagging**
 =bootstrap aggragating &nbsp;/ &nbsp;서로 다른 데이터 set에 대해 같은 알고리즘 분류기를 이용</br></br>
 
 **Random Forest** : 전체 데이터에서 각각 분할 및 샘플링해 개별적으로 학습한 후 모든 분류기가 voting을 통해 class를 결정 - RandomForestClassifier() </br>
@@ -95,7 +95,7 @@ general한 정도가 너무 커지면 underfitting이 발생하기에 적절한 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 ex. 전체 데이터 : 16개, 각각의 데어터 set에 임의의 4개를 가져가 중복하여 sampling </br>
 
-#### **Boosting**
+### **Boosting**
 여러 개의 약한 학습기(weak learner)를 순차적으로 학습-예측하여 잘못 예측한 데이터나 학습 트리에 가중치 부여를 통해 오류를 개선해나가는 방식 </br></br>
 **AdaBoost** : 분류 기준에 벗어난 데이터에 가중치를 부여하여 새로운 분류 기준을 만들며, 만들어지는 분류 기준과 기존의 것을 종합하여 예측 후 반복 </br></br>
 **Gradient Boost** : AdaBoost와 비슷한 논리이지만 경사 하강법을 이용해 오류식을 최소화 하는 방향으로 가중치를 업데이트하는 형식 </br>
@@ -152,7 +152,7 @@ boost_from_average = False : label값이 극도로 불균등할 때, 재현율 �
 num_leaves, max_depth, min_child_samples, min_child_depth / subsample, colsample_bytree / reg_lambda, reg_alpha / learning_rate -> 대표 파라미터들</br>
 XGBoost, LightGBM 모두 정확한 정확도 추출을 위해선 검증데이터를 KFold로 번갈아 가며 확인 필요 (early stopping을 적용 시키려면 직접 코드 작성 / cross함수 X)</br>
 
-#### **Stacking**
+### **Stacking**
 같은 데이터 set를 여러 기반 모델들이 학습한 후 예측한 데이터를, 다시 메타 모델이 이를 학습 후 예측 </br>
 현실 모델에 적용 가능한가? 무조건적인 성능 향상을 보이는가?에 대한 의견들이 분분함 </br>
 사용한다면 original형태 보단(overfitting 문제), 교차 검증 기반 형태로 이용 - 다만 많이 복잡</br></br>

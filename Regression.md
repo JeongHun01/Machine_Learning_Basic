@@ -47,6 +47,15 @@ RSS(W) / δW0 = -2/N * Σ (y - ( w0 + w1 * x)) = -2/N * Σ (실제값 - 예측�
 
 scoring 적용 시 유의 사항 : cross_val_score나 GridSearchCV는 score값이 가장 큰 것을 찾는데, 회귀 평가 지표중 대다수는 작을 수록 좋은 지표이기에 neg를 붙여 앞에 -1를 곱해준다 -> score은 -1이 붙여진 상태로 반환
 
+## Feature Engineering for Regression
+회귀는 feature와 target 데이터가 모두 정규 분포인 형태를 선호 </br>
+target : Log Conversion - Skewness되어 있는 경우 적용 </br>
+feature : Scaling - feature들에 대해 표준화/정규화 적용/br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+PolynomialFeature - 표준화/정규화 수행한 데이터 세트에 적용 (overfitting 유의)</br> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Log Conversion - Skewness가 심한 중요 feature들에 대해 적용
+
 ## **Linear Regression**
 예측값과 실제값의 RSS를 최소화하는 OLS(Ordinary Least Squares) 추정 방식으로 구현한 class - sklearn.learn_model / LinearRegression()</br>
 주요 파라미터 : fit_intercept - 절편 값 계산의 유무 default = True </br>
@@ -108,3 +117,16 @@ L1 규제식 이용 / 불필요한 회귀 계수를 0으로 만들고 제거 (fe
 비용 함수 미분시 = RSS(W)/δW + alpha_a*( 1, 0 -1 중 1개) + 2alpha_b*W 가 되며 </br>
 alpha_a + alpha_b = alpha로 alpha_a 값을 조절해 L2가 L1를 완화시키는 역할을 해준다 </br></br>
 파라미터 : alpha = alpha_a + alpha_b / l1_ratio = alpha_a의 비율
+
+## **Logistic Regression**
+선형 회귀 방식을 분류에 적용한 알고리즘 (주로 이진 분류) </br>
+회귀 최적 함수를 찾는 것이 아닌, Sigmoid 함수를 찾아 그 반환 값을 확률로 가정해 분류에 이용 </br></br>
+
+**Sigmoid function** = 1 / ( 1 + e^-x ), 치역 : 0~1</br>
+i) 성공 확률 p에 대해, 실패 대비 성공 비율 함수 Odds(p) = p / ( 1 - p )로 정의하자 </br>
+ii) Log 변환으로 Logit함수 생성후 선형 회귀식과 mapping. Log(Odds(p)) = W1*x + W0</br>
+\#probability axioms에 의해 p의 범위는 0~1이지만, 선형 회귀식은 -∞ ~ ∞이므로 log 변환으로 대응 </br>
+iii) 이후 x에 대한 식을 구하기 위해, 역함수를 구한다 - 최종식, p(x) = 1 / ( 1 + e^-(W1x + W0)) </br>
+-> 학습을 통해 Sigmoid 함수의 w를 최적화하여 예측하는 것
+</br></br>
+장점 : 가볍고, 빠르며, 이진 분류 예측 성능 뛰어남. 특히 텍스트 분류에 유용

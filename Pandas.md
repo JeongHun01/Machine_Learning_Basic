@@ -16,7 +16,8 @@ pd.set_option() : DataFrame에 보여지는 데이터 조절 </br>
 shape, values, columns, index, index.values, dtypes : 각각을 반환 </br>
 info() : 여러 정보를 제공(Column명, 데이터 타입, Null의 수, . . .) </br>
 describe() : 평균, 표준편차, 4분위 분포 제공 - 단 숫자형에 국한</br>
-.nunique() : column내 몇 건의 고유값이 있는 지 확인 (value_counts는 고유값이 각각 몇 건인지)</br></br>
+.nunique() : column내 몇 건의 고유값이 있는 지 확인 (value_counts는 고유값이 각각 몇 건인지)</br>
+series.hist() : DataFrame상에서 시각화 </br></br>
 [column].value_counts() : 해당 column(Series)에서 동일한 데이터가 각각 몇 개 있는 지 출력(Null 제외) - DataFrame에도 사용 가능 </br>
 \# 이때 column의 데이터들이 index로 표시 + value_counts의 column명은 count로 표시 + Series type 반환</br>
 \# default dropna = True / False인 경우 NaN도 출력 </br></br>
