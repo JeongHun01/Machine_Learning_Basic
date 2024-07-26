@@ -116,18 +116,18 @@ alpha_a + alpha_b = alpha로 alpha_a 값을 조절해 L2가 L1를 완화시키�
 
 장점 : 가볍고, 빠르며, 이진 분류 예측 성능 뛰어남. 특히 텍스트 분류에 유용 </br></br>
 
-**Sigmoid function** = 1 / ( 1 + e^-x ), 치역 : 0~1</br>
-i. 성공 확률 p에 대해, 실패 대비 성공 비율 함수 Odds(p) = p / ( 1 - p )로 정의하자 </br>
-ii. Log 변환으로 Logit함수 생성후 선형 회귀식과 mapping. Log(Odds(p)) = W1*x + W0</br>
-\#probability axioms에 의해 p의 범위는 0~1이지만, 선형 회귀식은 -∞ ~ ∞이므로 log 변환으로 대응 </br>
-iii. 이후 x에 대한 식을 구하기 위해, 역함수를 구한다 - 최종식, p(x) = 1 / ( 1 + e^-(W1x + W0)) </br>
+**Sigmoid function** = 1 / ( 1 + e^-x ), 치역 : 0\~1</br>
+step1. 성공 확률 p에 대해, 실패 대비 성공 비율 함수 Odds(p) = p / ( 1 - p )로 정의하자 </br>
+step2. Log 변환으로 Logit함수 생성후 선형 회귀식과 mapping. Log(Odds(p)) = W1*x + W0</br>
+\#probability axioms에 의해 p의 범위는 0\~1이지만, 선형 회귀식은 -∞ \~ ∞이므로 log 변환으로 대응 </br>
+step3. 이후 x에 대한 식을 구하기 위해, 역함수를 구한다 - 최종식, p(x) = 1 / ( 1 + e^-(W1x + W0)) </br>
 -> 학습을 통해 Sigmoid 함수의 w를 최적화하여 예측하는 것
 </br></br>
 **주요 파라미터** : penalty = 규제 유형, C = 1 / alpha </br> 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 solver - lbfgs = default, 메모리 공간 절약 + CPU 코어 수가 많다면 최적화 병렬 수행 </br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-liblinear = 다차원이고 작은 데이터 세트에서 효과적으로 동작하지만 국소 최적화(Local Minimum) 이슈 + 병렬 최적화 불가 </br>
+liblinear = 다차원 작은 + 데이터 세트에서 효과적이지만 국소 최적화(Local Minimum) 이슈 + 병렬 최적화 불가 </br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 newton-cg = 좀 더 정교화 최적화가 가능하지만, 대용량의 데이터에서 속도가 많이 저하 </br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
