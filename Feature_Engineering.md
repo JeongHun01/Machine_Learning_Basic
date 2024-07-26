@@ -1,7 +1,8 @@
 **주의 : 이론상 Feature Engineering을 거치면, 모델의 성능이 좋아져야 하지만 실제로 적용시 별 차이가 없거나 오히려 더 떨어지는 경우가 존재하니 유의**
 
 ### **NaN(Null) Processing**
-info() / isna() -> count()로 NaN 파악후 fillna()로 NaN 데이터 치환 - pandas method
+info() / isna() -> count()로 NaN 파악후 fillna()로 NaN 데이터 치환 - pandas method</br>
+\# fillna()할때 바로 파라미터에 df.mean() 대입시, 숫자형에 한해 따로 column지정 없이 알아서 평균값 대입
 
 ### **Drop**
 Train에 불필요한 / 방해되는 feature, index 삭제 - drop(labels, axis, inplace) - pandas method
@@ -10,13 +11,15 @@ Train에 불필요한 / 방해되는 feature, index 삭제 - drop(labels, axis, 
 특정 비정상적인 값을 직접 다른 표준적인 수로 치환 - df[feature].replace(이상 값, 변경할 값) - pandas method
 
 ### **Outlier Removal**
-데이터상 이상치를 제거 / 처리하는 과정 </br>
+데이터상 이상치를 제거 / 처리하는 과정 - 잘쓰면 좋은 성능 </br>
 **단, 지울수록 원래 성능이 좋아지므로 막 지우면 안되고, 정말로 필요한 수치들만 제거하도록 한다 - 적게 지울수록 좋은 모델** </br>
-
+유의 사항 : 값이 혼자 떨어져 있어도 이상적인 데이터일 수 있으니, 여러 기능이나 시각화로 파악을 먼저 하는 것을 지향 (특정 데이터들이 이상해 보여도 테스트 데이터에 똑같이 존재할 수도 있기에 확인 필요) </br></br>
 **#corr** : column들 간의 상관도(상관계수)를 확인 - pandas method</br>
 DataFrameObject.corr()시 상관도를 DataFrame 형태로 반환 / 비례한다면 1, 반비례한다면 -1에 가까워짐 </br>
 sns.heatmap()으로 시각화 가능 - import seaborn as sns</br>
 (또는 subplot 이용해서 각각 시각화 하여 확인하여도 됨) </br> </br>
+**직접 제거** : 상관도가 높거나 중요한 데이터가 있다면, 산점도와 같은 기능을 이용해 이상치 조건 구하기</br>
+boolean indexing으로 조건들을 작성 후 직접 drop (내가 원하는 특정 데이터들만 골라 제거 가능) </br></br>
 **IQR(Inter Quantile Range)** : 데이터의 1/4 ~ 3/4 구간을 IQR으로 정하고 이를 기준으로 이상치 를 제외하는 기법 - numpy method</br>
 최대값 = 3/4분위 + IQR* 1.5 , 최소값 = 1/4분위 - IQR* 1.5으로 정한 박스 플롯 외부 값은 모두 이상치로 처리 </br>
 1. np.percentile(1d ndarray, percent) : 해당 ndarray에서 하위 percent에 해당하는 값 </br>
@@ -47,12 +50,15 @@ SelectFromModel(model, threshold) 생성 후 fit(feature, label)</br></br>
 permutation_importance(model, feature, label, n_repeats) 객체 생성 / object.importances_mean : feature 별로 mean값을 ndarray로 반환
 
 ### **Encoding**
-숫자형 이외의 자료형을 러닝을 위해 숫자형 할당하는 과정  - sklearn.processing </br></br>
+숫자형 이외의 자료형 혹은 카테고리성 feature에 러닝을 위해 정해진 숫자형을 할당하는 과정  - sklearn.processing </br></br>
 **LabelEncode()** : 0부터 1씩 증가시켜 정수값 할당 </br>
 객체 생성 후, fit(해당 feature) -> transform(해당 feature) = fit_transform(해당 feature), 인코딩 완료된 1d ndarray 반환</br>
-classes_ - 0부터 mapping한 자료형을 ndarray 형태로 반환 / inverse_transform(숫자 집합) - 각 숫자에 대응하는 원본 데이터의 집합 반환 </br></br>
+classes_ - 0부터 mapping한 자료형을 ndarray 형태로 반환 / inverse_transform(숫자 집합) - 각 숫자에 대응하는 원본 데이터의 집합 반환</br>
+단점 : 데이터간의 크기의 차이가 발생 </br></br>
 **OneHotEncoder()** : n비트 구조를 이용하여, 한 개의 자리만 1이고 나머지는 모두 0으로 서로 구분되게 할당</br>
-해당 feature를 reshape(-1,1)로 2d ndarray로 변환 후 진행 </br></br>
+해당 feature를 reshape(-1,1)로 2d ndarray로 변환 후 진행 </br>
+pd.get_dummies(df, columns, dummy_na)를 이용시 별도의 변환 필요 X </br>
+-> 장점: Null값도 같이 인코딩 (dummy_na = False(default) - Null은 모든 자리수가 0, dummy_na = True - NaN - Column생성) + columns 없을 시 자동으로 object만 인코딩</br></br>
 주의점 : 이후 test는 transform만
 
 
@@ -66,10 +72,24 @@ feature들 간의 '수'의 단위 차이가 심할 때, 특정한 기준으로 �
 
 주의점 : 이후 test는 transform만
 
+### **Skweness**
+mean(평균)과 median(중앙값)의 차이로 인한 분포 왜도 - scipy.stats</br>
+**Right Skew** : mode > median > mean / **Left Skew** : mode < median< mean </br></br>
+df.apply(lambda x : skew(x))시 skew수치가 series형태로 반환</br>
+skew 값이 -0.5~0.5라면 대칭에 가까움 </br>
+-1보다 작거나(Left Skew), 1보다 큰 경우(Right Skew) 왜도가 심함
+
 ### **Conversion**
-**Log Conversion** : 단일 feature 내부 데이터의 불균등이 심할 때, 이를 비교적 정규 분포와 비슷하게 변환 (음이 아닌 실수 제한) - numpy method </br>
-np.log1p(feature)시 log변환 완료후 해당 자료형으로 반환 </br>
-#log1p를 하는 이유 : 수치해석적으로 너무 작은 데이터로 인해 log 0 = -inf이 발생할 수 있어, 이를 방지하고자 +1를 한 상태로 계산
+단일 feature/target 내부 데이터의 불균등이 심할 때, 이를 비교적 정규 분포와 비슷하게 변환 </br></br>
+**Log Conversion** :  log를 이용해 변환- numpy method </br>
+주로 Right Skew된 경우 적용</br>
+np.log1p(feature)시 log변환 완료후 해당 자료형으로 반환, np.expm1()으로 원본 변환 </br>
+#log1p를 하는 이유 : 수치해석적으로 너무 작은 데이터로 인해 log 0 = -inf이 발생할 수 있어, 이를 방지하고자 +1를 한 상태로 계산 </br>
+음수 값이 데이터에 포함된 경우, 모두 양수가 되는 최소 값을 일괄적으로 더해서 보정 후 변환</br>
+
+
+**Exponential/Power Conversion** : </br>
+주로 Left Skew된 경우 적용
 
 ### **Sampling**
 원본 데이터의 label이 매우 불균등한 분포를 가진다면, 학습에 어려움이 존재하기에 sampling을 통해 비율을 맞추는 작업</br>
@@ -78,3 +98,18 @@ Over Sampling : 적은 데이터를 가진 class의 세트를 많은 데이터�
 **SMOTE(Synthetic Minority Over-Sampling Technique)** : 적은 데이터의 class들이 KNN-Neighbor를 하고 그 사이에 random하게 데이터를 증식 - imblearn.over_sampling </br>
 smote.fit_resample(feature, label) : over된 데이터양의 feature와 label를 순서대로 반환</br>
 주의점 : test set은 SMOTE 적용 금지
+
+### **DateTime**
+날짜와 시간이 feature로 들어갈 때, 구분화 하기 - pandas method </br></br>
+df_object['column'].datetime.apply(pd.to_datetime) : 해당 column이 날짜 + 시간을 나타내며 이를 datetime dtype으로 변경 </br>
+df_object['date/time'] = df_object.datetime.apply(lambda x : x.year/month/day/hour) : 해당 feature column을 추가 (int형)
+
+
+### Feature Engineering for Regression
+회귀는 feature와 target 데이터가 모두 정규 분포인 형태를 선호 </br>
+target : Log Conversion - Skewness되어 있는 경우 적용 </br>
+feature : Scaling - feature들에 대해 표준화/정규화 적용</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+PolynomialFeature - 표준화/정규화 수행한 데이터 세트에 적용 (overfitting 유의)</br> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Log Conversion - Skewness가 심한 중요 feature들에 대해 적용

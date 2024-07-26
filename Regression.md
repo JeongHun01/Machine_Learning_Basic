@@ -33,28 +33,20 @@ RSS(W) / δW0 = -2/N * Σ (y - ( w0 + w1 * x)) = -2/N * Σ (실제값 - 예측�
 **만약 데이터가 너무 많다면 미니 배치 확률적 경사하강법을 사용한다 (전체에서 일부만 뽑아서 사용 - CLT개념 이용)**
 
 ## **성능 평가 지표**
+-sklearn.metrics </br></br>
 **MAE(Mean Absolute Error)** : mean_absolute_error(target, predict) - 실제값과 예측값 차이를 절댓값으로 변환해 평균한 것 </br>
 #scoring = 'neg_mean_absolute_error' </br></br>
 **MSE(Mean Squared Error)** : mean_squared_error(target, predict) - 실제값과 예측값 차이를 제곱해 평균한 것 </br>
 #scroing = 'neg_mean_squared_error' </br></br>
 **MSLE** : mean_square_log_error(target, predict) - MSE에 log를 적용한 것 (일부 큰 오류값으로 인해 전체 오류 커지는 것 방지) </br>
 #scoring = 'neg_mean_squared_log_error'</br></br>
-**RMSE** : MSE 파라미터 squared = False 설정 - MSE에 루트를 씌운 것 (제곱한 것을 다시 제곱근) - MAE에 비해 큰 오류값에 상대적인 패널티를 더 부여 </br>
+**RMSE** : MSE 파라미터 squared = False 설정 / np.sqrt() - MSE에 루트를 씌운 것 (제곱한 것을 다시 제곱근) - MAE에 비해 큰 오류값에 상대적인 패널티를 더 부여 </br>
 #scoring = 'neg_root_mean_squared_error' </br></br>
-**RMSLE** : RMSE에 log를 적용한 것 </br></br>
+**RMSLE** : MSLE 파라미터 squared = False 설정 / np.sqrt() - RMSE에 log를 적용한 것 </br></br>
 **R2** : r2_score(target, predict) - R2 = 예측값 var / 실제값 var</br>
 #scoring = 'r2' </br></br>
 
 scoring 적용 시 유의 사항 : cross_val_score나 GridSearchCV는 score값이 가장 큰 것을 찾는데, 회귀 평가 지표중 대다수는 작을 수록 좋은 지표이기에 neg를 붙여 앞에 -1를 곱해준다 -> score은 -1이 붙여진 상태로 반환
-
-## Feature Engineering for Regression
-회귀는 feature와 target 데이터가 모두 정규 분포인 형태를 선호 </br>
-target : Log Conversion - Skewness되어 있는 경우 적용 </br>
-feature : Scaling - feature들에 대해 표준화/정규화 적용/br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-PolynomialFeature - 표준화/정규화 수행한 데이터 세트에 적용 (overfitting 유의)</br> 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Log Conversion - Skewness가 심한 중요 feature들에 대해 적용
 
 ## **Linear Regression**
 예측값과 실제값의 RSS를 최소화하는 OLS(Ordinary Least Squares) 추정 방식으로 구현한 class - sklearn.learn_model / LinearRegression()</br>
@@ -119,14 +111,42 @@ alpha_a + alpha_b = alpha로 alpha_a 값을 조절해 L2가 L1를 완화시키�
 파라미터 : alpha = alpha_a + alpha_b / l1_ratio = alpha_a의 비율
 
 ## **Logistic Regression**
-선형 회귀 방식을 분류에 적용한 알고리즘 (주로 이진 분류) </br>
+선형 회귀 방식을 분류에 적용한 알고리즘 (주로 이진 분류) - sklearn.linear_model / LogisticRegression()</br>
 회귀 최적 함수를 찾는 것이 아닌, Sigmoid 함수를 찾아 그 반환 값을 확률로 가정해 분류에 이용 </br></br>
 
+장점 : 가볍고, 빠르며, 이진 분류 예측 성능 뛰어남. 특히 텍스트 분류에 유용 </br></br>
+
 **Sigmoid function** = 1 / ( 1 + e^-x ), 치역 : 0~1</br>
-i) 성공 확률 p에 대해, 실패 대비 성공 비율 함수 Odds(p) = p / ( 1 - p )로 정의하자 </br>
-ii) Log 변환으로 Logit함수 생성후 선형 회귀식과 mapping. Log(Odds(p)) = W1*x + W0</br>
+i. 성공 확률 p에 대해, 실패 대비 성공 비율 함수 Odds(p) = p / ( 1 - p )로 정의하자 </br>
+ii. Log 변환으로 Logit함수 생성후 선형 회귀식과 mapping. Log(Odds(p)) = W1*x + W0</br>
 \#probability axioms에 의해 p의 범위는 0~1이지만, 선형 회귀식은 -∞ ~ ∞이므로 log 변환으로 대응 </br>
-iii) 이후 x에 대한 식을 구하기 위해, 역함수를 구한다 - 최종식, p(x) = 1 / ( 1 + e^-(W1x + W0)) </br>
+iii. 이후 x에 대한 식을 구하기 위해, 역함수를 구한다 - 최종식, p(x) = 1 / ( 1 + e^-(W1x + W0)) </br>
 -> 학습을 통해 Sigmoid 함수의 w를 최적화하여 예측하는 것
 </br></br>
-장점 : 가볍고, 빠르며, 이진 분류 예측 성능 뛰어남. 특히 텍스트 분류에 유용
+**주요 파라미터** : penalty = 규제 유형, C = 1 / alpha </br> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+solver - lbfgs = default, 메모리 공간 절약 + CPU 코어 수가 많다면 최적화 병렬 수행 </br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+liblinear = 다차원이고 작은 데이터 세트에서 효과적으로 동작하지만 국소 최적화(Local Minimum) 이슈 + 병렬 최적화 불가 </br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+newton-cg = 좀 더 정교화 최적화가 가능하지만, 대용량의 데이터에서 속도가 많이 저하 </br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+sag = Stochastic Average Gradient로서 경사하강법 기반의 최적화 적용, 대용량 데이터에서 빠르게 최적화 </br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+saga = sag와 유사한 최적화 방식이며 L1 정규화 가능 </br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+추가적인 최적화 방식들은 구글링
+
+## **Regression Tree**
+CART(Classification and Regression Tree) 알고리즘 사용 - 기존 Classfier 동일 모듈 / DecisionTreeRegressor(), RandomForestRegressor(), XGBRegresor, LGBMRegresor() </br>
+CART 회귀 트리는 분류와 유사하게 분할을 하며, 최종 분할이 완료된 후 각 분할 영역에 있는 데이터 결정값들의 평균값으로 학습/예측 </br>
+(feature 각각 평균값 이어서 회귀 식 생성), tree 구조이기에 overfitting 유의</br>
+
+## **예측 결과 혼합**
+분류에서 Esemble기법과 유사하게(흉내만 낸 정도) 모델들의 결과에 가중치를 준 다음 더해 최종 성능을 올리는 기법 </br></br>
+최종 predict = 가중치A * A모델_predict + 가중치B * B모델_predict + . . . ( ∑ 가중치 = 1) </br>
+(가중치는 정해진 기준은 없으며, 여러 번 반복하여 최적 성능 탐색)
+
+## **Stacking**
+데이터 세트를 만드는 과정은 Classification과 동일, 학습만 회귀 모델로 </br>
+회귀에서 stacking 기법은 다소 좋은 성능을 보임

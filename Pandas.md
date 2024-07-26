@@ -8,7 +8,8 @@
 #### **기본 API**
 pd.read_csv(file, sep) : (csv)파일을 불러와 DataFrame으로 저장 </br>
 \#default sep = ',' / sep설정시 csv외 다른 파일 불러오기 가능 </br>
-객체['column'] : 해당 columns들의 Series/DataFrame만 반환 (axis1 - 열) / 문자열인 경우 Series = 객체.column가능</br> 
+객체['column'] : 해당 columns들의 Series/DataFrame만 반환 (axis1 - 열) / 문자열인 경우 Series = 객체.column가능</br>
+\#단, dtype이 index인 인자도 []안에 입력 가능 (.index 이용) </br> 
 display(DataFrame) : DataFrame 출력 - 셀 상에서 마지막 줄인 경우 display()생략가능  (Series는 print만 가능한 듯)</br>
 head(), tail() : 입력된 수만큼의 앞/뒤 데이터만 출력 - default = 5</br>
 .rename(columns = {기존 : 변경}, inplace) : column 명칭 변경 </br>
