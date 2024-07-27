@@ -89,10 +89,10 @@ general한 정도가 너무 커지면 underfitting이 발생하기에 적절한 
 ### **Bagging**
 =bootstrap aggragating &nbsp;/ &nbsp;서로 다른 데이터 set에 대해 같은 알고리즘 분류기를 이용</br></br>
 
-**Random Forest** : 전체 데이터에서 각각 분할 및 샘플링해 개별적으로 학습한 후 모든 분류기가 voting을 통해 class를 결정 - RandomForestClassifier() </br>
+**Random Forest** : 전체 데이터에서 각각 분할 및 샘플링해 개별적으로 학습한 후 모든 분류기가 voting을 통해 class를 결정-RandomForestClassifier() </br>
 부트스트래핑 분할 방식 : 전체 데이터에서 일부가 중첩되게 샘플링하는 방식 </br>
-하이퍼 파라미터 : n_estimators(결정 트리 개수 지정, default = 100), max_features(default = 'auto'), max_depth, min_samples_leaf, . . .굉장히 많으니 필요시 구글링</br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+하이퍼 파라미터 : n_estimators(결정 트리 개수 지정, default = 100), max_features(default = 'auto'), max_depth, min_samples_leaf, . . .굉장히 </br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;많으니 필요시 구글링</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 ex. 전체 데이터 : 16개, 각각의 데어터 set에 임의의 4개를 가져가 중복하여 sampling </br>
 
 ### **Boosting**
@@ -113,10 +113,10 @@ C/C++로 작성 된 모듈 -> 파이썬 Wrapper(xgb) -> 사이킷런 Wrappper(XG
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 feature 중요도 시각화 - plot_importance </br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-하이퍼 파라미터 - eta(=learning_rate), num_boost_rounds(=n_estimators), min_child_weight, max_depth, sub_sample(=subsample) </br>
+하이퍼 파라미터 - eta(=learning_rate), num_boost_rounds(=n_estimators), min_child_weight, max_depth</br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-, lambda(=reg_lambda), alpha(=reg_alpha), colsample_bytree, scale_pos_weight, gamma, ()는 GBM에 동일한 기능이 존재하는 파라미터</br>
+, sub_sample(=subsample), lambda(=reg_lambda), alpha(=reg_alpha), colsample_bytree, scale_pos_weight, gamma, ()는 GBM에 동일한 기능이 </br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;존재하는 파라미터</br>
 사이킷런 Wrapper : 기존 다른 모델과 동일하게 사용 가능 (객체 생성 : 하이퍼 파라미터 / fit : early stopping 세팅)</br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 하이퍼 파라미터 - 기존 GBM을 그대로 따르되, GBM에 없는 것은 파이썬 Wrapper의 파라미터 사용</br></br>
