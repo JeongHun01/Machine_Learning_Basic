@@ -9,10 +9,7 @@
 type() - numpy.ndarray / dtype() - 데이터 요소의 타입</br></br>
 **Axis** : 배열의 축 -> shape 기준 (axis0, axis1, axis2, . . . , axisN) </br>
 축이므로 차원에서 방향성을 가짐 (각각의 axis에 해당하는 데이터 배열)
-</br></br>
-
-**Extra method**</br>
-np.round(ndarray, num) : 내부 요소들 num자리까지 반올림
+</br>
 
 ## **Create**
 **ndarray 생성**</br>
@@ -37,3 +34,7 @@ np.argsort(ndarray, axis) : ndarray 정렬 후, 정렬 전 인덱스 값 기준 
 ## **Linear Method**
 np.dot(A, B) : 내적 </br>
 np.transpose() : 전치
+
+## **Extra method**</br>
+np.round(ndarray, num) : 내부 요소들 num자리까지 반올림 </br>
+np.linespace(start, end, n) : start~end까지 n-1등분하여 n개 반환

@@ -8,7 +8,10 @@
 
 **Feature Selection** : 특정 feature에 종속성이 강한 불필요한 feature은 아예 제거하고 데이터의 특징을 잘 나타내는 주요한 feature만 선택 </br>
 **Feature Extraction** : 기존 feature를 저차원의 중요 feature로 압축해서 추출 (기존 feature의 특성을 반영하지만 새로운 feature로 추출하는 것) </br>
-\# 단순 압축이 아닌, feature를 함축적으로 더 잘 설명할 수 있는 또 다른 공간으로 mapping 
+\# 단순 압축이 아닌, feature를 함축적으로 더 잘 설명할 수 있는 또 다른 공간으로 mapping -> 차원 축소에서 사용하는 방법 </br></br>
+**대표적인 종류들** </br>
+PCA, LDA, SVD, NMF </br>
+기본적으로 fit으로 학습하고 transform으로 변환 DataFrame 반환
 
 ## **PCA(Principal Component Analysis)**
 고차원의 원본 데이터를 저차원의 부분 공간으로 투영하여 데이터를 축소하는 기법 - sklearn.decomposition / PCA()</br>
@@ -27,8 +30,7 @@ step5. 벡터 축의 개수만큼의 차원으로 원본 데이터가 축소 된
 </br>
 **속성** : .explaned_variance_ratio_ - 개별 PCA 컴포넌트 별 차지하는 변동성 비율 반환 (fit만 해도 만들어짐)
 
-**유의사항** : 1. PCA를 적용하기 전 개별 feature들 스케일링(일반적으론 표준화) 필수 - PCA는 scale에 영향을 받기 때문</br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. 모델 학습 시 기존의 fit()과 달리, transform()도 실시 (fit으로 입력 데이터 기준 축 생성, transform으로 입력 데이터 선형 변환) </br></br>
+**유의사항** : PCA를 적용하기 전 개별 feature들 스케일링(일반적으론 표준화) 필수 - PCA는 scale에 영향을 받기 때문</br></br>
 클래스 값 없이, 데이터 분석만으로 중요한 정보를 찾아 축소를 하기에 비지도 학습이라 불린다 </br> 
 이후 컴포넌트에 따라 데어티의 target의 분포 파악 가능 + 모델로 학습하여 성능 평가
 
