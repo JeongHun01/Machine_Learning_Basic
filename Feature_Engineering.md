@@ -80,7 +80,8 @@ skew 값이 -0.5~0.5라면 대칭에 가까움 </br>
 -1보다 작거나(Left Skew), 1보다 큰 경우(Right Skew) 왜도가 심함
 
 ### **Conversion**
-단일 feature/target 내부 데이터의 불균등이 심할 때, 이를 비교적 정규 분포와 비슷하게 변환 </br></br>
+단일 feature/target 내부 데이터의 불균등이 심할 때, 이를 비교적 정규 분포와 비슷하게 변환 </br>
+스케일링과 동시에 진행할 시, 변환을 먼저 적용하는 것을 권장(둘다 해본 후 비교해도 됨) </br></br>
 **Log Conversion** :  log를 이용해 변환- numpy method </br>
 주로 Right Skew된 경우 적용</br>
 np.log1p(feature)시 log변환 완료후 해당 자료형으로 반환, np.expm1()으로 원본 변환 </br>
