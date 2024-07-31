@@ -8,12 +8,15 @@
 **Feature_Engineering** </br></br>
 **Supervised_Learning**</br>
 - Classification </br>
-- Regression </br>
+- Regression </br></br>
 
 **Unsupervised_Learning**</br>
 - Dimention_Reduction </br>
-- Clustering </br>
+- Clustering </br></br>
+
+**Advanced**
+
 - Text_Analysis (Advanced) </br>
-- Recommendation (Advanced) </br>
+- Recommendation (Advanced) </br></br>
 
 **Visualization**
