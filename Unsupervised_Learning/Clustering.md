@@ -110,7 +110,7 @@ step3. 개별 정규분포들의 평균과 분산이 변경되지 않고, 데이
 **파라미터** : n_components = Mixture Model의 개수로 군집화의 개수를 의미</br>
 predict()으로도 label 반환 가능
 
-## **DBSCAN(Density Based Spatial Clustering of Applications with Noise)
+## **DBSCAN(Density Based Spatial Clustering of Applications with Noise)**
 특정 공간 내에 데이터 밀도 차이를 기반으로 하는 알고리즘 - sklearn.cluster / DBSCAN()</br>
 근처 데이터들이 적정 밀도가 유지된다면, 계속 군집을 이어나감 </br>
 -> 복잡한 기하하적 분포도를 가진 데이터 세트에서도 군집화를 잘 수행 / 데이터 밀도 차이를 감지하여 자동으로 군집 생성 </br></br>
