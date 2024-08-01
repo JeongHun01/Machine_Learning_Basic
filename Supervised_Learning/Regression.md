@@ -11,7 +11,8 @@
 **Ridge** : 선형 회귀에 L2 규제를 추가한 모델 </br>
 **Lasso** : 선형 회귀에 L1 규제를 추가한 모델 </br>
 **ElasticNet** : 선형 회귀에 L2, L1 규제를 추가한 모델 </br>
-**Logistic Regression** (Regression이지만 사실 분류에 사용되는 모델)
+**Logistic Regression** (Regression이지만 사실 분류에 사용되는 모델)</br>
+**Regression Tree** : tree 모델들을 이용해 회귀에 사용
 
 ## **RSS(Resiual Sum of Squares)**
 오류 값의 제곱을 구해서 더하는 방식으로 회귀의 비용 함수(cost function), 손실 함수(loss function)이라고 불린다</br>
