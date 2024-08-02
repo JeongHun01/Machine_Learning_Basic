@@ -19,7 +19,8 @@
 3\. SpaCy : 뛰어난 수행 성능의 NLP 패키지
 
 ## **Text Preprocessing**
-기본적으로 class/method는 패키지마다 다르니 구글링 후 사용 </br></br>
+기본적으로 class/method는 패키지마다 다르니 구글링 후 사용 </br>
+(정규 표현식 익히는 것이 좋음) </br></br>
 **클렌징(Cleansing)** : 텍스트에서 분석에 방해가 되는 불필요한 문자, 기호 등을 사전에 제거하는 작업, ex. HTML, XML 태그 혹은 기호 </br></br>
 **토큰화(Tokenization)** : 문장 토큰화, 단어 토큰화 - list type으로 반환</br>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; 
@@ -78,8 +79,41 @@ BOW의 행렬처럼 너무 많은 0값이 메모리 공간에 할당 되어 있�
 **COO 형식** : coordinate 방식이며, 0이 아닌 데이터만 별도의 배열에 저장하고 그 데이터를 가리키는 행과 열의 위치를 배열로 지정 - coo_matrix()</br>
 **CSR 형식** : coo형식의 좌표값 중복 문제를 해결한 형식(행과 열의 좌표 값에 또 다시 index를 부여하는 방식) - csr_matrix()
 
-
-
-
 ### **Word Embedding(Word2Vec)** 
 개별 단어를 문맥을 가지는 N차원 공간에 벡터화 시키는 것 (딥러닝에 주로 사용)</br></br>
+
+## **Text Classification**
+문서를 카테고리나 종류에 맞게 분류 - 지도학습
+
+ step1. 데이터 전처리 </br>
+ step2. 벡터화 적용 </br>
+ step3. 분류 모델 적용 및 예측 </br></br>
+ pipeline 이용시 더 간단히 이용 가능
+
+ ## **Sentiment Analysis**
+ 주어진 text의 주관적인 성격 분석 - 지도 학습 / 감성 어휘 사전(비지도 학습) </br></br>
+ **지도학습 기반** : 데이터와 레이블을 기반으로 학습한 후 다른 데이터의 결과를 예측</br>
+step1. 데이터 전처리 </br>
+step2. 벡터화 </br>
+step3. 분류 모델 적용 및 예측 </br></br> 
+ **감성 어휘 사전 기반(비지도 학습)** : 감성 분석을 위한 용어와 문맥에 대한 정보를 가진 사전을 이용해 감성 수치를 계산하고 긍정/부정 판단 </br>
+ 지도 학습에 비해 성능이 떨어지기에 class값이 없을 때 주로 사용 </br>
+ - SentiWordNet : Synset 별로 3가지 감정 점수를 할당(주관적-(긍정, 부정) , 객관성) / 단어들의 감정 부정 감성지수 합산하여 최종 결정 
+ - VADER : 주로 소셜 미디어의 텍스트를 위한 패키지. 뛰어난 감성 분석 결과 제공하며, 빠른 수행으로 대용량에 적합
+ - Pattern : 예측 성능 측면 뛰어남. 파이썬 2.X버전에서만 동작</br>
+
+#### **SentiWordNet**
+Synset 객체가 긍정 지수, 부정 지수, 객관성 지수를 분석하여 저장함 </br>
+nltk.corpus / sentimentwordnet() - 과정이 좀 복잡하니 필요시 구글링 필요 </br></br>
+step1. 문서를 문장 단위로 분해 </br>
+step2. 다시 문장을 단어 단위로 토큰화하고 품사 태깅(POS) </br>
+step3. 품사 태깅된 단어 기반으로 synset 객체와 senti_synset 객체를 생성 </br>
+step4. senti_synset에서 긍정/부정 감성 지수를 구하고 이를 모두 합산해 특정 임계치를 기준으로 긍정, 부정 결정 
+
+#### **VADER**
+소셜 미디어의 감성 분석 용도로 만들어진 룰 기반의 Lexicon </br></br>
+step1. SentimentIntensityAnalyzer() 클래스로 객체를 생성   </br>
+step2. polarity_scores() method로 감성 점수 반환 </br>
+step3. 직접 임계치 기준 긍정 부정 결정 </br></br>
+'neg' = 부정 감정 지수 / 'neu' = 중립 감성 지수 / 'pos' = 긍정 감성 지수 / compound = 감성 지수들을 조합해 -1\~1 사이의 값으로 표현한 것 </br>
+compound 값이 최종 감성 여부 결정 -> 임계값 조절으로 예측 성능 조절 (일반적으론 0.1 기준 높으면 긍정 처리)

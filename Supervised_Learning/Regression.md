@@ -72,8 +72,9 @@ PolynomialFeatures 클래스로 원본 단항 feature들을 다항 feature들로
 다항 feature 변형 시, 회귀 계수가 늘어난다. 즉, 입력시 동일한 degree와 feature 개수의 데이터가 변환이 된 후에 들어가야지 본인 자리에 맞게 들어간다. 따라서 학습 데이터를 변형시켜 모델을 만들었다면, 이후 검증/테스트 데이터도 입력 전 변형시켜야한다. 이는 과정이 복잡하므로 pipeline을 이용해 한 번에 처리한다 </br></br>
 
 **Pipeline** : 파라미터에 주어진 step들을 순차적으로 한 번에 실행 - sklearn.pipeline </br>
-파라미터에 step 순으로 tuple로 이루어진 list 대입 - tuple('step_name', 모델_클래스/객체) -> 이후 fit(feature, target) 진행 </br>
-개별 클래스 객체 접근 법 - pipeline_object.named_steps['step_name']시 해당 모델 객체 반환 </br></br>
+파라미터에 step 순으로 tuple로 이루어진 list 대입 - tuple('step_name', 모델_클래스/객체) -> 이후 fit(feature, target) 진행 / predict()시 내부 transform 자동 적용 </br>
+개별 클래스 객체 접근 법 - pipeline_object.named_steps['step_name']시 해당 모델 객체 반환 </br>
+GirdsearchCV에 적용법 - param_grid = {'step_name__parameter(객체 변수 + _ 2개 + 파라미터)' : [parameter], . . .}형식으로 작성</br>
 
 **단점 : degree에 따라 overfitting하기가 쉽다** </br>
 degree 높아지면 회귀 식이 정교해지고 이에 w0, w1, w2, . . .를 업데이트하며 식에 다가갈 때, 회귀 식의 함수 모양은 실제 함수(곡선 형태일 확률이 높은)와 유사해지지만 </br>
