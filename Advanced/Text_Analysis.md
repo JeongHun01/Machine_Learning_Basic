@@ -6,7 +6,7 @@
 ### 주요 영역
 **Text Classification** : 문서가 특정 분류 또는 카테고리에 속하는 것을 예측하는 기법</br>
 **Sentiment Analysis** : 텍스트에서 나타나는 감정/판단/믿음/의견/기분 등의 주관적인 요소를 분석하는 기법</br>
-**Summarization** : 텍스트 내에서 중요한 주제나 중심 사상을 추출하는 기법</br>
+**Summarization** : 텍스트 내에서 중요한 주제나 중심 사상을 추출하는 기법 - Topic Modeling</br>
 **텍스트 군집화 및 유사도 측정** : 비슷한 유형의 문서에 대해 군집화를 수행 하는 / 유사도를 측정해 비슷한 문서끼리 모으는 기법 </br>
 
 ### 수행 과정
@@ -27,8 +27,13 @@
 n - gram = 문맥적인 의미를 보존하기 위해 연속된 n개의 단어를 하나의 토큰화 단위로 분리</br>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
 vectorization class에서 동시에 처리 가능</br></br>
-**Filtering / Remove StopWords / Modify Spelling** : 불필요한 단어나 분석에 필요없는 단어(a, the, is, will 등) 그리고 잘못된 철자 수정 </br></br>
-**Stemming / Lemmatization** : 어근 추출 (Lemmatization이 품사를 파라미터로 가져, Stemming보다 정교하고 의미론적인 단어 원형을 찾아줌)
+**Filtering / Remove StopWords / Modify Spelling** : 불필요한 단어나 분석에 필요없는 단어(a, the, is, will 등) 그리고 잘못된 철자 수정 </br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+vectorization class에서 동시에 처리 가능</br></br>
+**Stemming / Lemmatization** : 어근 추출 (Lemmatization이 품사를 파라미터로 가져, Stemming보다 정교하고 의미론적인 단어 원형을 찾아줌) </br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+벡터화 파라미터 중 tokenizer에 함수 형식으로 넣어 어근 추출 동시에 가능
+
 
 ## **Featrue Vectorization**
 ### **Bag of Words**  
@@ -50,7 +55,7 @@ TF(Term Frequency) = 해당 문서에서 해당 단어가 얼마나 나왔는지
 DF(Document Frequency) = 해당 단어가 몇 개의 문서에서 나왔는지를 나타내는 지표 </br>
 IDF(Inverse Document Frequency) = DF의 역수로서 (전체 문서수 / DF)</br>
 -> TF-IDF = TF * log IDF (DF가 높다면 패널티를 부과) </br></br>
-fit(), transform()으로 적용 희소 행렬 반환 </br></br>
+fit(), transform()으로 적용 및 희소 행렬 반환 </br></br>
 
 **파라미터** : make_df = 일정 이상의 높은 빈도의 단어는 문법적인 특성의 반복적인 단어라고 판단하고 제거하기 위해 상한 설정 </br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -87,7 +92,7 @@ BOW의 행렬처럼 너무 많은 0값이 메모리 공간에 할당 되어 있�
 
  step1. 데이터 전처리 </br>
  step2. 벡터화 적용 </br>
- step3. 분류 모델 적용 및 예측 </br></br>
+ step3. 분류 모델(지도 학습) 적용 및 예측 </br></br>
  pipeline 이용시 더 간단히 이용 가능
 
  ## **Sentiment Analysis**
@@ -111,9 +116,71 @@ step3. 품사 태깅된 단어 기반으로 synset 객체와 senti_synset 객체
 step4. senti_synset에서 긍정/부정 감성 지수를 구하고 이를 모두 합산해 특정 임계치를 기준으로 긍정, 부정 결정 
 
 #### **VADER**
-소셜 미디어의 감성 분석 용도로 만들어진 룰 기반의 Lexicon </br></br>
+소셜 미디어의 감성 분석 용도로 만들어진 룰 기반의 Lexicon - nltk.sentiment.vader / SentimentIntensityAnalyzer()</br></br>
 step1. SentimentIntensityAnalyzer() 클래스로 객체를 생성   </br>
-step2. polarity_scores() method로 감성 점수 반환 </br>
-step3. 직접 임계치 기준 긍정 부정 결정 </br></br>
+step2. polarity_scores() method로 감성 점수 dict 반환 </br>
+step3. 직접 임계치 기준 compound 값으로 긍정 부정 결정 </br></br>
 'neg' = 부정 감정 지수 / 'neu' = 중립 감성 지수 / 'pos' = 긍정 감성 지수 / compound = 감성 지수들을 조합해 -1\~1 사이의 값으로 표현한 것 </br>
 compound 값이 최종 감성 여부 결정 -> 임계값 조절으로 예측 성능 조절 (일반적으론 0.1 기준 높으면 긍정 처리)
+
+## **Topic Modeling**
+문서들에 잠재되어 있는 공통된 토픽(주제)들을 추출하는 기법 </br>
+이는 유사성 도출과 더불어 문서들이 가지는 주요 토픽의 분포도와 개별 토픽이 어떤 의미인지를 제공하는 특징 보유 </br></br>
+모델을 통해 토픽들을 나눔 + 개별 토픽들의 단어 분포를 얻음 -> 결과를 보고 직접 우리가 토픽들에 적정한 이름을 부여 </br></br>
+**유형**</br>
+**LSA(Latent Semantic Analysis), NMF(Non Negative Factorization)** : 행렬 분해 기반 (SVD, NMF)</br>
+**pLSA, LDA(Latent Drichlet Allocation)** : 확률 기반</br></br>
+1\. 개별 문서는 혼합된 여러 개의 주제로 구성되어 있다 </br>
+2\. 개별 주제는 여러 개의 단어로 구성되어 있다 </br>
+위 2가지의 가정이 전제되어 있어야 함
+</br></br>
+
+### LDA
+관찰된 문서 내 단어들을 이용하여 베이즈 추론을 통해 잠재된 문서 내 토픽 분포와 토픽별 단어 분포를 추론하는 방식</br>
+이때, 베이즈 추론의 사전 확률 분포로 사용되는 것은 디리클레 분포(Dirichlet Dirstribution) </br>
+베이즈 추론 : 초기에 사전 확률을 구한 후, 이후 데이터가 관측되면 사후 확률을 계산하고 이를 사전확률로 두고 다시 반복하여 업데이트 하는 방식 </br>
+\- sklearn.decomposition / LatentDirochletAllocation()</br></br>
+**내부 진행 순서**</br>
+step0. 벡터화 - 단순 Count기반 문서-단어 행렬 생성 (확률 기반이기에 TF-IDF불가)</br>
+step1. 토픽의 개수를 먼저 설정 </br>
+step2. 각 단어들을 임의의 주제로 최초로 할당한 후 문서별 토픽 분포와 토픽별 단어 분포가 결정</br>
+step3. 특정 단어 하나를 추출하고 해당 단어를 제외한 문서의 토픽 분포와 토픽별 단어 분포를 재계산 / 추출된 단어는 새롭게 토픽 할당 분포 계산 </br>
+step4. 다른 단어를 추출하고 step3 다시 수행, 모든 단어들의 토픽 할당 분포 재 계산 </br>
+step5. 지정된 반복 횟수 만큼 또는 모든 단어들의 토픽 할당 분포가 변경되지 않고 수렴될 때까지 3\~4를 수행 </br></br>
+
+단점 : 추출된 토픽은 다시 사람의 주관적인 해석 필요 + 초기화 파라미터 및 Document-Term 행렬의 단어 필터링 최적화 어려움 존재 </br></br>
+
+**파라미터** : n_components = 토픽의 개수 </br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+doc_topic_prior = α (문서의 토픽 분포 θ의 초기 값) </br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+topic_word_prior = β (토픽의 단어 분포 φ의 초기 값)</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+max_iter = 반복 횟수</br></br>
+**속성** : components_ = topic별로 개별 단어들의 연관도(횟수)를 정규화한 수 2d ndarray ( shape - topic 수 X feature 단어 수)</br></br>
+transform()시 개별 문서별 토픽 분포 반환 -> 직접 분포도에 비율을 보고 어떠한 토픽들로 구성되어 있는 지 판단
+
+## **Document Clustering**
+Text Classification과 유사하지만 비지도 학습으로, 비슷한 텍스트 구성의 문서를 군집화 하는 기법 </br></br>
+ step1. 데이터 전처리 </br>
+ step2. 벡터화 적용 </br>
+ step3. 군집화 모델(비지도 학습) 적용 및 예측 </br></br>
+ 주로 K-Means 모델을 많이 사용</br></br>
+
+ **군집별 핵심 단어 추출** </br>
+ 모델.cluster_centers_ : 각 cluster에 해당하는 feature 단어들의 비율 반환 (shape - cluster개수 X feature 단어 수) </br>
+ centroid에 가까울 수록 값이 1에 가까워짐 </br>
+ -> 이를 보고 직접 중요 단어 판단 및 추출
+
+## **Document Similarity**
+문서와 문서간의 유사도를 측정 ( ex\. 뉴스 기사 아래에 관련된 기사 목록 표시) </br></br>
+**문서 유사도 측정 지표** : Cosine Similarity, Jaccard Similarity, Manhattan Distance, Euclidean Distance 
+
+### **Cosine Similarity**
+cos(0) = 1, cos(𝝿/2) = 0 을 이용해 방향성을 기준으로 유사도를 측정 - sklearn.metrics.pairwise / cosine_similarity()</br>
+1\. 벡터화 한 행렬 상 각각의 Document들은 feature들로 이루어져 있음</br>
+2\. 이를 각각을 벡터로 보고 문서간의 cos값으로 유사도를 측정 </br>
+3\. 0\~1까지의 값을 가지며 1에 가까울 수록 높은 유사도를 가짐 (벡터화 행렬은 음수가 존재 안함)</br>
+-> simliarity = cosθ = A·B / ||A||||B|| = ∑ AB / (∑ A^2)^(1/2) * (∑ B^2)^(1/2) </br></br>
+cosine_similarity(X,X)시 2d ndarray로 D0~DN에 관한 서로간의 유사도를 나타낸 행렬 반환 </br>
+(1행 지정,X)시 지정된 행 기준으로 다른 행들과의 비교값을 행렬로 반환
