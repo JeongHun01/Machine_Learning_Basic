@@ -184,3 +184,15 @@ cos(0) = 1, cos(𝝿/2) = 0 을 이용해 방향성을 기준으로 유사도를
 -> simliarity = cosθ = A·B / ||A||||B|| = ∑ AB / (∑ A^2)^(1/2) * (∑ B^2)^(1/2) </br></br>
 cosine_similarity(X,X)시 2d ndarray로 D0~DN에 관한 서로간의 유사도를 나타낸 행렬 반환 </br>
 (1행 지정,X)시 지정된 행 기준으로 다른 행들과의 비교값을 행렬로 반환
+
+## **한글 NLP**
+띄워 쓰기, 다양한 조사, 주어/목적어 생략 가능, 의성어/의태어, 높임말, . . . 등의 이유로 한글은 NLP를 어렵게 만드는 요인이 많다</br>
+형태소 분석 : 말뭉치를 형태소 어근 단위로 쪼개고 각 형태소에 품사 태깅(POS tagging)을 부착하는 작업을 지칭
+### **KoNLPy**
+C/C++, Java로 만들어진 한글 형태소 엔진을 파이선 Wrapper 기반으로 재작성된 패키지 - konlpy.tag / 사용할class이름()</br>
+품사 태깅 클래스 : Kkma, Komoran, Hannanum, Okt, Mecab(리눅스 전용) </br>
+pandas에서 한글 문서 불러올 시, 인코딩을 cp949로 설정 / text파일은 UTF-8 </br></br>
+**순서**</br>
+step1. (class.morphs(text) : 인자로 들어온 text를 형태소 단어로 토큰화하여 list로 반환)의 함수를 설정</br>
+step2. 벡터화시 파라미터인 tokenizer에 step1에서 만든 함수 대입후 벡터화 실시 </br>
+step3. 이후 목적에 맞는 지도/비지도 모델 선정 후 학습 및 예측

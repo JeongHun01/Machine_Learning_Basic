@@ -114,3 +114,14 @@ feature : Scaling - feature들에 대해 표준화/정규화 적용</br>
 PolynomialFeature - 표준화/정규화 수행한 데이터 세트에 적용 (overfitting 유의)</br> 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 Log Conversion - Skewness가 심한 중요 feature들에 대해 적용
+
+### **Text Engineering**
+1\.간단한 단어나 단순 카테고리가 아닌 경우</br>
+2\.카테고리로 담아두기엔 unique가 너무 많을 경우</br>
+3\.어떠한 설명이라든지 중요한 정보인 경우 </br>
+-> Text 전처리 및 벡터화 </br></br>
+단, 벡터화시 sparse matrix형태로 반환되기에, 기존 feature matrix에 추가할 시 변환이 필요 </br>
+step1. 다른 feature들을 OneHotEncode 또는 LabelEncode에서 파라미터 sparse(_output)= True (onehot default = True / label default = False)로, 희소 행렬로 반환 - dense로 합치기엔 text feature의 column수가 매우 많기에 비효율적</br>
+step2. sparse matrix들은 tuple형식으로 묶어 준다 </br>
+step3. scipy.sparse / hstack()을 import한 후, hstack(tuple).tocsr()로 데이터 셋들이 결합된 최종 sparse matrix를 구한다 </br>
+\- 유의사항 : 합쳐진 데이터 셋은 메모리를 많이 차지하므로 사용 용도가 끝났으면 바로 메모리에서 삭제하는 것을 권장
