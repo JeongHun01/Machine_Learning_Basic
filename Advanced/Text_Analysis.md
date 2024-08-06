@@ -75,7 +75,9 @@ token_pattern = 토큰화를 수행하는 정규 표현식 지정 (default = '\b
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 \#어근 추출 시 외부 함수 사용할 경우 해당 함수를 인자로 사용</br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-lower_case = 모든 문자를 소문자로 변경하는지 (default = True) </br></br>
+lower_case = 모든 문자를 소문자로 변경하는지 (default = True) </br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+tokenizer = 토큰화 방식 설정, 주로 함수 형태를 입력</br>
 **속성** : .vocabulary_ = 각각의 단어와 index를 mapping한 것을 dict 형식으로 반환
 
 #### **CSR Matrix(희소 행렬)**
@@ -182,7 +184,7 @@ cos(0) = 1, cos(𝝿/2) = 0 을 이용해 방향성을 기준으로 유사도를
 2\. 이를 각각을 벡터로 보고 문서간의 cos값으로 유사도를 측정 </br>
 3\. 0\~1까지의 값을 가지며 1에 가까울 수록 높은 유사도를 가짐 (벡터화 행렬은 음수가 존재 안함)</br>
 -> simliarity = cosθ = A·B / ||A||||B|| = ∑ AB / (∑ A^2)^(1/2) * (∑ B^2)^(1/2) </br></br>
-cosine_similarity(X,X)시 2d ndarray로 D0~DN에 관한 서로간의 유사도를 나타낸 행렬 반환 </br>
+cosine_similarity(X,X)시 2d ndarray로 row - D0~DN에 관한 서로간의 유사도를 나타낸 행렬 반환 </br>
 (1행 지정,X)시 지정된 행 기준으로 다른 행들과의 비교값을 행렬로 반환
 
 ## **한글 NLP**

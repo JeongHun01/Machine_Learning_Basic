@@ -77,7 +77,8 @@ mean(평균)과 median(중앙값)의 차이로 인한 분포 왜도 - scipy.stat
 **Right Skew** : mode > median > mean / **Left Skew** : mode < median< mean </br></br>
 df.apply(lambda x : skew(x))시 skew수치가 series형태로 반환</br>
 skew 값이 -0.5~0.5라면 대칭에 가까움 </br>
--1보다 작거나(Left Skew), 1보다 큰 경우(Right Skew) 왜도가 심함
+-1보다 작거나(Left Skew), 1보다 큰 경우(Right Skew) 왜도가 심함 </br></br>
+Conversion을 통해 skewness 처리
 
 ### **Conversion**
 단일 feature/target 내부 데이터의 불균등이 심할 때, 이를 비교적 정규 분포와 비슷하게 변환 </br>
@@ -90,7 +91,9 @@ np.log1p(feature)시 log변환 완료후 해당 자료형으로 반환, np.expm1
 
 
 **Exponential/Power Conversion** : </br>
-주로 Left Skew된 경우 적용
+주로 Left Skew된 경우 적용 </br>
+지수 변환 - Exponential / 거듭제곱 변환 - Power (numpy methods)</br>
+Left Skew에 -를 붙여 y축 대칭이 되게 한 후, 일정 양수 값으로 모두 0 이상이 되게 하고 log conversion 진행해도 됨
 
 ### **Sampling**
 원본 데이터의 label이 매우 불균등한 분포를 가진다면, 학습에 어려움이 존재하기에 sampling을 통해 비율을 맞추는 작업</br>
@@ -124,4 +127,9 @@ Log Conversion - Skewness가 심한 중요 feature들에 대해 적용
 step1. 다른 feature들을 OneHotEncode 또는 LabelEncode에서 파라미터 sparse(_output)= True (onehot default = True / label default = False)로, 희소 행렬로 반환 - dense로 합치기엔 text feature의 column수가 매우 많기에 비효율적</br>
 step2. sparse matrix들은 tuple형식으로 묶어 준다 </br>
 step3. scipy.sparse / hstack()을 import한 후, hstack(tuple).tocsr()로 데이터 셋들이 결합된 최종 sparse matrix를 구한다 </br>
-\- 유의사항 : 합쳐진 데이터 셋은 메모리를 많이 차지하므로 사용 용도가 끝났으면 바로 메모리에서 삭제하는 것을 권장
+\- 유의사항 : 합쳐진 데이터 셋은 메모리를 많이 차지하므로 사용 용도가 끝났으면 바로 메모리에서 삭제하는 것을 권장 (del data)
+
+### **Text Parsing**
+만약 데이터를 불러왔을 때 텍스트에 []나 {}가 사용 되었다면, 이는 str 형식으로 써진 것이므로 파이썬 객체로 바꿔주는 작업이 필요</br>
+from ast import literal_eval</br>
+이후 .apply(literal_eval)시 파이썬 객체로 바뀌며 원하는 데이터 처리 진행
