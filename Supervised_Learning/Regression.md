@@ -84,7 +84,8 @@ degree 높아지면 회귀 식이 정교해지고 이에 w0, w1, w2, . . .를 �
 
 ## **Regularized Linear Regression**
 비용 함수에 alpha값으로 패널티를 부여해 과적합을 개선시키는 방식 ( 오류 최소화 + 회귀 계수 크기 제어 ) - sklearn.linear_model </br>
-이를 위해, 비용 함수 목표 = Min( RSS(W) + alpha * ||W||^2(1) )로 변경 - alpha = 제어를 위한 튜닝 파라미터 </br></br>
+이를 위해, 비용 함수 목표 = Min( RSS(W) + alpha * ||W||^2(1) )로 변경 - alpha = 제어를 위한 튜닝 파라미터 </br>
+이에 맞게 update w도 규제식을 적용하여 다르게 사용</br></br>
 alpha가 커지면 W가 작아져야 하기에 회귀 계수 크기를 줄이는 효과 / alpha가 작아지면 Min(RSS(W))에 가까워져 단순 RSS(W)를 최소화시켜 오류를 줄이는 효과 </br>
 -> 회귀 계수 크기와 오류를 모두 줄이는 최적의 alpha 찾기 </br></br>
 
