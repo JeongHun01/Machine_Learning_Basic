@@ -79,7 +79,7 @@ from surprise import . . . </br></br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 predict(user, item) = 개별 한 건의 결과 prediction 객체 반환 </br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-cross_validate = 사이킷런의 cross_val_score / GridSearchCV에 모델 객체가 아닌, 모델 클래스를 넣어야 함 / scoring -> measures 파라미터
+cross_validate = 사이킷런의 cross_val_score / GridSearchCV에 모델 객체가 아닌, 모델 클래스를 넣어야 함 / measures 사용 (=scoring) 
 </br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 데이터 로딩 시 Dataset 패키지 이용 - 이때 데이터 파일 column은 user, item, rating 순서</br></br>
