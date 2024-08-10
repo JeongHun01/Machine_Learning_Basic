@@ -19,6 +19,7 @@
 - Text_Analysis </br>
 - Recommendation </br></br>
 
-**Visualization**
+**Visualization**</br></br>
+
 
 <img width="821" alt="화면 캡처 2024-08-10 153803" src="https://github.com/user-attachments/assets/51da1d4d-acc4-4356-ad0a-c311c5bad375">
