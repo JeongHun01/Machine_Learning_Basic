@@ -50,7 +50,8 @@ SelectFromModel(model, threshold) 생성 후 fit(feature, label)</br></br>
 permutation_importance(model, feature, label, n_repeats) 객체 생성 / object.importances_mean : feature 별로 mean값을 ndarray로 반환
 
 ### **Encoding**
-숫자형 이외의 자료형 혹은 카테고리성 feature에 러닝을 위해 정해진 숫자형을 할당하는 과정  - sklearn.processing </br></br>
+숫자형 이외의 자료형 혹은 카테고리성 feature에 러닝을 위해 정해진 숫자형을 할당하는 과정  - sklearn.preprocessing </br></br>
+
 **LabelEncode()** : 0부터 1씩 증가시켜 정수값 할당 </br>
 객체 생성 후, fit(해당 feature) -> transform(해당 feature) = fit_transform(해당 feature), 인코딩 완료된 1d ndarray 반환</br>
 classes_ - 0부터 mapping한 자료형을 ndarray 형태로 반환 / inverse_transform(숫자 집합) - 각 숫자에 대응하는 원본 데이터의 집합 반환</br>

@@ -2,7 +2,7 @@
 **1. 데이터 개요 파악** : info(), descirbe(), hist(), 시각화, . . . 등으로 데이터의 전체적인 형태 파악 </br>
 **2. Feature Engineering** </br>
 **3. 데이터 셋 분업화** : training set과 test set으로 분류 , sklearn.model_selection </br>
-train_test_split(feature, target, test_size(%), random_state = 11 (고정값, random_seed), shuffle = True (default), stratify = None)</br>
+train_test_split(feature, target, test_size(%), random_state(고정값, random_seed), shuffle = True (default), stratify = None)</br>
 4. **하이퍼 파라미터 튜닝** : GridSearchCV(+검증), RandomizedSearch, Bayesian Optimization, 수동 튜닝 </br>
 **5. 검증** 
 만들어질 training set의 알고리즘 정확도를 자세히 알기 위해 KFold를 진행(+하이퍼 파라미터 튜닝), sklearn.model_selection</br>

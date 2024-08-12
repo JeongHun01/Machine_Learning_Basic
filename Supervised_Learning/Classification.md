@@ -72,6 +72,14 @@ min_samples_split : 노드가 분할 가능한 최소의 samples 데이터 수 �
 min_samples_leaf : 분할의 결과인 왼쪽, 오른쪽 자식 노드에서 가져야할 최소한의 sample 데이터 수 제한</br>
 max_leaf_nodes : 밑단 노드의 최대 개수</br></br>
 
+**시각화**</br>
+from sklearn.tree import export_graphviz</br>
+export_graphviz(모델, out_file="파일명", class_names, feature_names , impurity = True, filled = True)</br>
+import graphviz</br>
+with open("파일명") as f:</br>
+&nbsp;&nbsp;&nbsp;&nbsp;dot_graph = f.read()</br>
+graphviz.Source(dot_graph)</br></br>
+
 #### **Overfitting**
 모든 케이스를 분류하기 위해 복잡한 기준들이 설정된다면, 복잡한 경계들로 이루어진 model이 형성 </br>
 그렇게 된다면, 유연성이 떨어지기에 test data를 제대로 예측하지 못할 가능성이 커져 성능이 떨어지며, 이를 과적합이라고 호칭 </br>

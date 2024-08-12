@@ -87,11 +87,13 @@ cf) 이미지적으로 떠올리면 굉장히 간단 </br></br>
 ## **Extra**
 **Missing Data** </br>
 1) isna() : 주어진 column 값들이 NaN인가에 대해 True/False 반환 </br>
-2) fillna() : Missing data를 인자로 주어진 값으로 대체 </br>
+2) fillna() : Missing data를 인자로 주어진 값으로 대체 (inplace = False) </br>
 
 **Sorting** </br>
 .sort_values(by, ascending) : 정렬 / default - ascending = True(오름차순) - False : 내림차순 </br>
 
 **Replace** </br>
 [column].replace() : 원본 값을 특정 값으로 대체 (2개 이상 변경 시, dict이용)</br>
+
+concat([df1,df2], axis) : DataFrame 합치기 - default axis = 0
 
