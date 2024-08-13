@@ -22,7 +22,7 @@ Step3. 획득 함수에서 다음으로 관측할 하이퍼 파라미터 추출(
 Step4. 해당 하이퍼 파리미터로 관측된 값을 기반으로 대체 모델은 다시 최적 함수 예측 추정 </br>
 -> 이를 반복하며 목표 최적 함수와 대체 모델로 예측한 최적 함수를 유사하게 만드는 것이 목적</br></br>
 주요 사용하는 패키지 : HyperOpt, Bayesian Optimization, Optuna</br>
-HyperOpt(TPE) : 입력값 범위(Search Space-dict) -> 목적 함수 -> fmin() - 목적 함수 최소값 유추 (최적 하이퍼 파라미터 자체를 구하는 것은 다른 모듈 - 필요시 구글링)</br></br>
+HyperOpt(TPE) : 입력값 범위(Search Space-dict) -> 목적 함수 -> fmin() - 목적 함수 최소값 유추 (최적 하이퍼 파라미터 자체를 구하는 것은 다른 모듈 - 필요시 구글링) - hyperopt / hp, STATUS_OK, fmin, tpe, Trials</br></br>
 hp.quniform(label, low, high, q) : label로 지정된 입력 값 변수 검색 공간을 최소값 low에서 최대값 high까지 q의 간격을 가지고 설정</br>
 hp.uniform(label, low, high) : 최소값 low에서 최대값 high까지 정규 분포 형태의 검색 공간 설정</br>
 hp.randint(label, upper) : 0부터 upper까지 random 정수 값으로 검색 공간 설정 </br>
@@ -109,7 +109,7 @@ ex. 전체 데이터 : 16개, 각각의 데어터 set에 임의의 4개를 가�
 **Gradient Boost** : AdaBoost와 비슷한 논리이지만 경사 하강법을 이용해 오류식을 최소화 하는 방향으로 가중치를 업데이트하는 형식 </br>
 GBM 하이퍼 파라미터 : loss(경사 하강법 비율), learning_rate(학습률, default = 0.1), n_estimators, subsample(학습에 사용할 샘플링 비율) </br>
 -> 문제점 : 학습에 많은 시간이 소요 + 고차원 데이터 다루기에 어려움 -> 보완하고자 나온 모델 : XGBoost, LightGBM</br></br>
-**XGBoost** : GBM에서 병렬처리를 지원 - xgboost / xgb()</br>
+**XGBoost** : GBM에서 병렬처리를 지원 - xgboost / XGBClassifier()</br>
 장점 - 분류,회귀 모두 좋은 성능 / GBM 대비 빠른 속도(CPU 병렬처리 + GPU 지원) / 다양한 성능 향상 기능(규제, Tree Pruning) / 다양한 편의 기능(Early Stopping, . . .)</br></br>
 **-XGBoost, LightGBM 실전에서는 사이킷런 wrapper를 사용하지만, 이해를 위해 파이썬 wrapper도 아는 것이 중요-**</br>
 C/C++로 작성 된 모듈 -> 파이썬 Wrapper(xgb) -> 사이킷런 Wrappper(XGBClassifier) </br>
@@ -125,16 +125,16 @@ feature 중요도 시각화 - plot_importance </br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 , sub_sample(=subsample), lambda(=reg_lambda), alpha(=reg_alpha), colsample_bytree, scale_pos_weight, gamma, </br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;()는 GBM에 동일한 기능이 존재하는 파라미터</br>
-사이킷런 Wrapper : 기존 다른 모델과 동일하게 사용 가능 (객체 생성 : 하이퍼 파라미터 / fit : early stopping 세팅)</br>
+사이킷런 Wrapper : 기존 다른 모델과 동일하게 사용 가능 (early stopping 세팅)</br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 하이퍼 파라미터 - 기존 GBM을 그대로 따르되, GBM에 없는 것은 파이썬 Wrapper의 파라미터 사용</br></br>
 학습 파라미터</br>
 objective : 회귀인지, 어떠한 분류인지 학습 방법 설정 </br>
 eval_metirx : 오류함수의 성능 평가 지표 </br></br>
 조기 중단 기능(Early Stopping) : 과적합 방지를 위해 특정 반복 횟수 만큼 더 이상 비용함수가 감소하지 않으면 지정된 반복 횟수를 완료하지 않고 수행 종료 </br>
-early_stopping_rounds - 더 이상 비용 평가 지표가 감소하지 않는 최대 반복 횟수 </br>
-eval_metric - 반복 수행 시 사용하는 평가 지표 </br>
-eval_set - 평가를 수행하는 별도의 검증 데이터 세트. 일반적으로 검증 데이터 세트에서 반복적으로 비용 감소 성능 평가 </br></br>
+early_stopping_rounds - 더 이상 비용 평가 지표가 감소하지 않는 최대 반복 횟수 - 객체에서 설정</br>
+eval_metric - 반복 수행 시 사용하는 평가 지표 - 객체에서 설정 / lgbm은 fit에서</br>
+eval_set - 평가를 수행하는 별도의 검증 데이터 세트. 일반적으로 검증 데이터 세트에서 반복적으로 비용 감소 성능 평가 - fit에서 설정</br></br>
 **LightGBM** : XGBoost의 단점들을 보완한 모델 - 코드 진행 논리는 동일하며 파리미터가 다르다(num_leavs 중심) - lightgbm / LGBMClassifier()</br>
 장점 - XGBoost보다 빠른 학습과 예측 수행시간 / 더 적은 메모리 / 카테고리형 feature의 자동 변환과 최적 분할</br></br>
 기존 GBM, XGBOOST 분할법 : 균형 트리 분할(Level Wise) vs LightGBM : 리프 중심 트리 분할(Leaf Wise) </br></br>
