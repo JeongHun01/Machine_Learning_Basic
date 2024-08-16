@@ -146,7 +146,7 @@ C/C++로 작성 된 모듈 -> 파이썬 Wrapper(xgb) -> 사이킷런 Wrappper(XG
 , bagging_fraction(=subsample), feature_fraction(=colsample_bytree), early_stopping_round(=early_stopping_rounds)</br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-, lambda_l2(=reg_lambda), lambda_l1(=reg_alpha), min_sum_hessian_in_leaf(=miㅜ_child_weight)</br>
+, lambda_l2(=reg_lambda), lambda_l1(=reg_alpha), min_sum_hessian_in_leaf(=min_child_weight)</br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 ()는 XGBoost에 동일한 기능이 존재하는 파라미터</br>
@@ -156,8 +156,9 @@ C/C++로 작성 된 모듈 -> 파이썬 Wrapper(xgb) -> 사이킷런 Wrappper(XG
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 Leaf Wise 방식으로 주로 num_leaves를 중심으로 min_child_samples, max_depth 조정</br></br>
 boost_from_average = False : label값이 극도로 불균등할 때, 재현율 및 ROC-AUC 성능을 높이기 위함 (default = True)</br>
-너무 많은 파라미터 튜닝은 오히려 방해가 될 수 있음 </br>
-num_leaves, max_depth, min_child_samples, min_child_depth / subsample, colsample_bytree / reg_lambda, reg_alpha / learning_rate -> 대표 파라미터들</br>
+너무 많은 파라미터 튜닝은 오히려 방해가 될 수 있음 </br></br>
+**대표적 튜닝 파라미터**
+num_leaves, max_depth, min_child_samples, min_child_depth / subsample, colsample_bytree / reg_lambda, reg_alpha / learning_rate </br>
 XGBoost, LightGBM 모두 정확한 정확도 추출을 위해선 검증데이터를 KFold로 번갈아 가며 확인 필요 (early stopping을 적용 시키려면 직접 코드 작성 / cross함수 X)</br>
 
 ### **Stacking**
