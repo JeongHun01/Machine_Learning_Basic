@@ -68,7 +68,8 @@ reset_index(drop, inplace) : 변경 사항 - 기존 index를 column형태로 추
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 #일반적 slicing, fancy 가능/ boolean 불가</br>
 
-**3. Boolean Indexing** : 조건식에 따른 필터링 제공 - 객체[조건식]
+**3. Boolean Indexing** : 조건식에 따른 필터링 제공 - 객체[조건식]</br>
+**4. column 명칭 + index 인덱스** : df[column_name][index]시 호출 가능</br> 
 
 
 ## **Aggregation / Group by**

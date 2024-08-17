@@ -31,6 +31,15 @@ boolean indexing으로 조건들을 작성 후 직접 drop (내가 원하는 특
 ### **Duplication Processing**
 중복명 처리 - feature_name.groupby() -> count()로 중복 확인 후 cumcount()이용 / feature_name 파일에서 직접 수정 - pandas method
 
+### **Feature Importance**
+모든 Tree모델에서 범용적으로 사용 </br>
+trained_model.feature_importances_ - 1d ndarray형으로 중요도 순서대로 반환 </br>
+zip(feature name, feature importance) - 순서대로 feature 이름과 중요도를 tuple 형식으로 mapping 후 1d ndarray화 </br>
+sns.barplot(x = feature importance, y = feature name) - 시각화 </br></br>
+
+단, tree구조를 만들기 위한 feature들의 impurity가 중요 기준(label값과 관련이 없어도 높은 중요도 가질 수 있음) / 학습 데이터 기반이므로 테스트에서는 또 다름 / 숫자형의 높은 cardinality feature에 biased 되어있음 -> 따라서 feature importance는 절대적인 feature selection 기준이 될 순 없음</br>
+따라서 모델 자체에 영향을 주는 중요도를 좀 더 정밀하게 알기위해 permutation importance가 도입
+
 ### **Feature Selection**
 모델을 구성하는 주요 feature들을 선택 / 불 필요한 다수의 feature들이 모델 성능을 떨어뜨릴 가능성 제거 + 설명 가능한 모델이 될 수 있도록 feature 선별 </br>
 단, LightGBM과 같은 좋은 성능의 모델은 feature들을 모두 포용 가능한 부분이 있어 상황에 따라 유의 </br>
@@ -52,7 +61,7 @@ permutation_importance(model, feature, label, n_repeats) 객체 생성 / object.
 ### **Encoding**
 숫자형 이외의 자료형 혹은 카테고리성 feature에 러닝을 위해 정해진 숫자형을 할당하는 과정  - sklearn.preprocessing </br></br>
 
-**LabelEncode()** : 0부터 1씩 증가시켜 정수값 할당 </br>
+**LabelEncoder()** : 0부터 1씩 증가시켜 정수값 할당 </br>
 객체 생성 후, fit(해당 feature) -> transform(해당 feature) = fit_transform(해당 feature), 인코딩 완료된 1d ndarray 반환</br>
 classes_ - 0부터 mapping한 자료형을 ndarray 형태로 반환 / inverse_transform(숫자 집합) - 각 숫자에 대응하는 원본 데이터의 집합 반환</br>
 단점 : 데이터간의 크기의 차이가 발생 </br></br>
