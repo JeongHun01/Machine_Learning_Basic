@@ -39,6 +39,7 @@ plt.bar/plot(axis별 좌표 list/ndarray, 그래프를 꾸미는 여러 설정) 
 plt.title(str) : title을 설정 </br>
 plt.show() : 그림판 호출</br>
 fig, (ax1, ax2, . . .)/ax([]로 접근) = plt.subplots(nrows, ncols, figsize) = 여러 개의 Axes를 가지는 Figure 객체 설정 및 반환</br>
+\# constrained_layout = True시 Axes 문자 겹치는 거 방지 </br>
 plt.xlabel/ylabel() : x축/y축에 축명을 텍스트로 할당</br>
 plt.xticks/yticks(ticks, rotation) : x축/y축 단위/문자열 rotation만큼 회전 + 아래 눈금을 ticks = np.arange(범위)로 나눔 - 주로 문자열 있을 때 사용 </br>
 plt.xlim/ylim((최소,최대)) : x축/y축에 나타나는 값 범위 제한 </br>

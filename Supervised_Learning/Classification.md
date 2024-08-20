@@ -171,12 +171,3 @@ step1. 각 모델별로 교차검증으로 원본 학습/테스트 데이터를 
 step2. 위에서 생성한 학습용/테스트용 데이터들을 stacking 형태로 합치어 최종 학습용/테스트용 데이터 생성</br>
 step3. 메타 모델은 최종 학습 데이터와 원본 학습 label를 기반으로 학습한 뒤, 최종 테스트 데이터를 예측하고 원본 테스트 label를 기반으로 평가 </br>
 #학습 - 최종학습+원본학습label / 예측 - 최종테스트 / 평가 - 원본테스트label
-
-## **Feature Importance**
-모든 Tree모델에서 범용적으로 사용 </br>
-trained_model.feature_importances_ - 1d ndarray형으로 중요도 순서대로 반환 </br>
-zip(feature name, feature importance) - 순서대로 feature 이름과 중요도를 tuple 형식으로 mapping 후 1d ndarray화 </br>
-sns.barplot(x = feature importance, y = feature name) - 시각화 </br></br>
-
-단, tree구조를 만들기 위한 feature들의 impurity가 중요 기준(label값과 관련이 없어도 높은 중요도 가질 수 있음) / 학습 데이터 기반이므로 테스트에서는 또 다름 / 숫자형의 높은 cardinality feature에 biased 되어있음 -> 따라서 feature importance는 절대적인 feature selection 기준이 될 순 없음</br>
-따라서 모델 자체에 영향을 주는 중요도를 좀 더 정밀하게 알기위해 permutation importance가 도입
