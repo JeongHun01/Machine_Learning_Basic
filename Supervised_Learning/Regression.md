@@ -14,7 +14,7 @@
 **Logistic Regression** (Regression이지만 사실 분류에 사용되는 모델)</br>
 **Regression Tree** : tree 모델들을 이용해 회귀에 사용
 
-## **RSS(Resiual Sum of Squares)**
+## **RSS(Residual Sum of Squares)**
 오류 값의 제곱을 구해서 더하는 방식으로 회귀의 비용 함수(cost function), 손실 함수(loss function)이라고 불린다</br>
 **RSS(W0,W1) = 1/N * Σ (y - ( w0 + w1 * x))^2** </br></br>
 f(x) = W0 + W1 * x에서 회귀 계수인 W0,W1을 학습을 통해 찾는 것이 목적 </br>
