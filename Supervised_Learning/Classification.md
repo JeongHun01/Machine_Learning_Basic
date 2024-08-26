@@ -105,9 +105,22 @@ ex. 전체 데이터 : 16개, 각각의 데어터 set에 임의의 4개를 가�
 
 ### **Boosting**
 여러 개의 약한 학습기(weak learner)를 순차적으로 학습-예측하여 잘못 예측한 데이터나 학습 트리에 가중치 부여를 통해 오류를 개선해나가는 방식 </br></br>
-**AdaBoost** : 분류 기준에 벗어난 데이터에 가중치를 부여하여 새로운 분류 기준을 만들며, 만들어지는 분류 기준과 기존의 것을 종합하여 예측 후 반복 </br></br>
-**Gradient Boost** : AdaBoost와 비슷한 논리이지만 경사 하강법을 이용해 오류식을 최소화 하는 방향으로 가중치를 업데이트하는 형식 </br>
-GBM 하이퍼 파라미터 : loss(경사 하강법 비율), learning_rate(학습률, default = 0.1), n_estimators, subsample(학습에 사용할 샘플링 비율) </br>
+**AdaBoost** : 분류 기준에 벗어난 데이터에 가중치를 부여하여 새로운 분류 기준을 만들며, 만들어지는 분류 기준과 기존의 것을 종합하여 예측 후 반복 - AdaBoostClassifier()</br></br>
+파라미터 : base_estimator = 기본 weak learner (default = DecisionTreeClassifier())</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+n_estimators : 학습기 개수</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+learning_rate : 학습률</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+algorithm : 부스팅 알고리즘 (default = 'SAMM.R')</br></br>
+**Gradient Boost** : AdaBoost와 비슷한 논리이지만 경사 하강법을 이용해 오류식을 최소화 하는 방향으로 가중치를 업데이트하는 형식 - GradientBoostingClassifier()</br>
+파라미터 : n_estimators : 학습기 개수</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+learning_rate : 학습률</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+loss : 경사하강법 비율</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+supsample : 샘플링 비율</br></br>
 -> 문제점 : 학습에 많은 시간이 소요 + 고차원 데이터 다루기에 어려움 -> 보완하고자 나온 모델 : XGBoost, LightGBM</br></br>
 **XGBoost** : GBM에서 병렬처리를 지원 - xgboost / XGBClassifier()</br>
 장점 - 분류,회귀 모두 좋은 성능 / GBM 대비 빠른 속도(CPU 병렬처리 + GPU 지원) / 다양한 성능 향상 기능(규제, Tree Pruning) / 다양한 편의 기능(Early Stopping, . . .)</br></br>
@@ -122,9 +135,11 @@ C/C++로 작성 된 모듈 -> 파이썬 Wrapper(xgb) -> 사이킷런 Wrappper(XG
 feature 중요도 시각화 - plot_importance </br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 하이퍼 파라미터 - eta(=learning_rate), num_boost_rounds(=n_estimators), min_child_weight, max_depth</br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-, sub_sample(=subsample), lambda(=reg_lambda), alpha(=reg_alpha), colsample_bytree, scale_pos_weight, gamma, </br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;()는 GBM에 동일한 기능이 존재하는 파라미터</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+, sub_sample(=subsample), lambda(=reg_lambda), alpha(=reg_alpha), colsample_bytree</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+, scale_pos_weight, gamma</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+()는 GBM에 동일한 기능이 존재하는 파라미터</br>
 사이킷런 Wrapper : 기존 다른 모델과 동일하게 사용 가능 (early stopping 세팅)</br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 하이퍼 파라미터 - 기존 GBM을 그대로 따르되, GBM에 없는 것은 파이썬 Wrapper의 파라미터 사용</br></br>
@@ -140,13 +155,18 @@ eval_set - 평가를 수행하는 별도의 검증 데이터 세트. 일반적�
 기존 GBM, XGBOOST 분할법 : 균형 트리 분할(Level Wise) vs LightGBM : 리프 중심 트리 분할(Leaf Wise) </br></br>
 C/C++로 작성 된 모듈 -> 파이썬 Wrapper(xgb) -> 사이킷런 Wrappper(XGBClassifier) </br>
 파이썬 Wrapper : 
-하이퍼 파라미터 - num_iterations(=n_estimators), learning_rate, max_depth, min_data_in_leaf(=min_child_samples), num_leaves  </br>
+하이퍼 파라미터 - num_iterations(=n_estimators), learning_rate, max_depth, min_data_in_leaf(=min_child_samples)
+</br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-, bagging_fraction(=subsample), feature_fraction(=colsample_bytree), early_stopping_round(=early_stopping_rounds)</br>
+, num_leaves, bagging_fraction(=subsample), feature_fraction(=colsample_bytree)</br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-, lambda_l2(=reg_lambda), lambda_l1(=reg_alpha), min_sum_hessian_in_leaf(=min_child_weight)</br>
+, early_stopping_round(=early_stopping_rounds), lambda_l2(=reg_lambda), lambda_l1(=reg_alpha)
+</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+, min_sum_hessian_in_leaf(=min_child_weight)</br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 ()는 XGBoost에 동일한 기능이 존재하는 파라미터</br>
