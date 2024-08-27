@@ -191,3 +191,12 @@ step1. 각 모델별로 교차검증으로 원본 학습/테스트 데이터를 
 step2. 위에서 생성한 학습용/테스트용 데이터들을 stacking 형태로 합치어 최종 학습용/테스트용 데이터 생성</br>
 step3. 메타 모델은 최종 학습 데이터와 원본 학습 label를 기반으로 학습한 뒤, 최종 테스트 데이터를 예측하고 원본 테스트 label를 기반으로 평가 </br>
 #학습 - 최종학습+원본학습label / 예측 - 최종테스트 / 평가 - 원본테스트label
+
+## **Naive Bayes**
+Bayes 정리를 이용해 각각의 feature들에 따른 label를 유추하는 기법 - sklearn.naive_bayes / GaussianNB(), CategoricalNB, MultinomialNB()</br>
+자세한 수학 증명은 Mathematics에서 확인 </br></br>
+feature 종류에 따른 분류</br>
+**GaussianNB** : 연속형 변수 </br>
+**CategoricalNB** : 범주형 변수 </br>
+**MultinomialNB** : 빈도수형 변수</br></br>
+**파라미터** : alpha = 확률이 하나가 0이 된다면, 모두 곱한 결과 전체 확률이 0이 되는 문제를 방지하기 위해 더하는 값
