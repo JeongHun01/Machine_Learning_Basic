@@ -12,3 +12,4 @@
 ![Super Vector Machine_12](https://github.com/user-attachments/assets/498bdcb8-1787-4d80-b005-ebb6fdc3f724)
 ![Super Vector Machine_13](https://github.com/user-attachments/assets/c6a79d75-76a8-4345-b56c-667d391ae9f8)
 ![Super Vector Machine_14](https://github.com/user-attachments/assets/5f017a4a-95aa-47d3-b59c-ae1ebeb8c4b9)
+ 
