@@ -193,10 +193,38 @@ step3. 메타 모델은 최종 학습 데이터와 원본 학습 label를 기반
 #학습 - 최종학습+원본학습label / 예측 - 최종테스트 / 평가 - 원본테스트label
 
 ## **Naive Bayes**
-Bayes 정리를 이용해 각각의 feature들에 따른 label를 유추하는 기법 - sklearn.naive_bayes / GaussianNB(), CategoricalNB, MultinomialNB()</br>
-자세한 수학 증명은 Mathematics에서 확인 </br></br>
+Bayes 정리를 이용해 각각의 feature들에 따른 label를 유추하는 기법 - sklearn.naive_bayes / GaussianNB(), CategoricalNB, MultinomialNB()</br></br>
 feature 종류에 따른 분류</br>
 **GaussianNB** : 연속형 변수 </br>
 **CategoricalNB** : 범주형 변수 </br>
 **MultinomialNB** : 빈도수형 변수</br></br>
 **파라미터** : alpha = 확률이 하나가 0이 된다면, 모두 곱한 결과 전체 확률이 0이 되는 문제를 방지하기 위해 더하는 값
+
+## **Support Vector Machine**
+kernel machine의 대표적인 종류 - sklearn.svm / SVC() </br>
+구조적 위험을 줄이기 위한 방법 중  VC-Dimension을 조절하는 것을 목표로 함 </br>
+margin이 특정 임계값보다 커진다면, VC-Dimension이 margin에 반비례하게 되며, 이가 risk를 감소시키는 원리 이용</br></br>
+**파라미터** : C = margin에 포함되지 않은 포인트들에 penalty를 적용할 때 정도를 조절 (default = 1.0)</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+kernel = 사용할 커널 식 (default = 'rbf', Gaussian kernel)</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+degree = mapping할 고차원의 차수 (default = 3)</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+gamma = σ에 반비례하는 값으로 (정확한 수식은 kernel에 따름), 커질수록 경계면이 복잡해짐 (default = 'scale')</br></br>
+
+cf\) 딥러닝에 관한 편견이 깨지면서, 전체적인 성능이 뒤쳐졌지만 아직은 이진분류에 있어서는 준수한 성능을 보임
+
+## **K-Nearest Neighbor**
+근접 이웃 방식으로 불리며, 거리 기반 분류/예측 기법 - sklearn.neighbors / KNeighborsClassifier()</br>
+모델로 학습 시키는 것이 아닌, 데이터 기반으로 계산하는 알고리즘</br></br>
+데이터 내 노이즈에 크게 영향을 받지 않으며, 데이터 분산을 고려할 수 있는 거리 측정도 존재 </br>
+또한 학습 데이터가 많을 시 효율 적</br>
+하지만 거리 척도에 대한 불분명이 존재하며, 계산 시간이 오래걸리고 고차원 데이터를 다루는 것에 한계가 존재</br></br>
+KNeighborsClassifier : 일반 KNN</br>
+**파라미터** : n_neighbors = k의 값(default = 5)</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+weights = 가중치 결정 방법(default = 'uniform', 가중치 적용시 - 'distance')</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+metric = 거리 측정 방식(default ='minkowski')</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+p = minkowski의 설정값 (default = 2, Euclidean / p = 1, Manhatton)</br></br>

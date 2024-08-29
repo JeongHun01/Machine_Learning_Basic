@@ -1,0 +1,1 @@
+![Naive Bayes](https://github.com/user-attachments/assets/0e78f39b-b395-4c31-a936-757f397ed4ab)

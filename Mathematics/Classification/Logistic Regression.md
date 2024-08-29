@@ -1,0 +1,2 @@
+![Logistic Regression_1](https://github.com/user-attachments/assets/8d2bf1bf-ea0b-4537-90ad-4b97f1a93ac2)
+![Logistic Regression_2](https://github.com/user-attachments/assets/cb5b17e8-f596-4f4a-8330-d3ee5e3ca72e)
