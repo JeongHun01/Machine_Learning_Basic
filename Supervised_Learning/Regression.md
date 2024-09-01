@@ -41,7 +41,7 @@ RSS(W) / δW0 = -2/N * Σ (y - ( w0 + w1 * x)) = -2/N * Σ (실제값 - 예측�
 #scroing = 'neg_mean_squared_error' </br></br>
 **MSLE** : mean_square_log_error(target, predict) - MSE에 log를 적용한 것 (일부 큰 오류값으로 인해 전체 오류 커지는 것 방지) </br>
 #scoring = 'neg_mean_squared_log_error'</br></br>
-**RMSE** : MSE 파라미터 squared = False 설정 / np.sqrt() - MSE에 루트를 씌운 것 (제곱한 것을 다시 제곱근) - MAE에 비해 큰 오류값에 상대적인 패널티를 더 부여 </br>
+**RMSE** : root_mean_squared_error() / np.sqrt() - MSE에 루트를 씌운 것 (제곱한 것을 다시 제곱근) - MAE에 비해 큰 오류값에 상대적인 패널티를 더 부여 </br>
 #scoring = 'neg_root_mean_squared_error' </br></br>
 **RMSLE** : MSLE 파라미터 squared = False 설정 / np.sqrt() - RMSE에 log를 적용한 것 </br></br>
 **R2** : r2_score(target, predict) - R2 = 예측값 var / 실제값 var</br>
@@ -50,7 +50,7 @@ RSS(W) / δW0 = -2/N * Σ (y - ( w0 + w1 * x)) = -2/N * Σ (실제값 - 예측�
 scoring 적용 시 유의 사항 : cross_val_score나 GridSearchCV는 score값이 가장 큰 것을 찾는데, 회귀 평가 지표중 대다수는 작을 수록 좋은 지표이기에 neg를 붙여 앞에 -1를 곱해준다 -> score은 -1이 붙여진 상태로 반환
 
 ## **Linear Regression**
-예측값과 실제값의 RSS를 최소화하는 OLS(Ordinary Least Squares) 추정 방식으로 구현한 class - sklearn.learn_model / LinearRegression()</br>
+예측값과 실제값의 RSS를 최소화하는 OLS(Ordinary Least Squares) 추정 방식으로 구현한 class - sklearn.linear_model / LinearRegression()</br>
 주요 파라미터 : fit_intercept - 절편 값 계산의 유무 default = True </br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 normalize - 입력 데이터 값 정규화 후 대입 여부 default = False (사용자가 직접 따로 스케일링 진행하는 것이 좋음)</br>
