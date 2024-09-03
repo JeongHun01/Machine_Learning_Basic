@@ -69,7 +69,9 @@ reset_index(drop, inplace) : 변경 사항 - 기존 index를 column형태로 추
 #일반적 slicing, fancy 가능/ boolean 불가</br>
 
 **3. Boolean Indexing** : 조건식에 따른 필터링 제공 - 객체[조건식]</br>
-**4. column 명칭 + index 인덱스** : df[column_name][index]시 호출 가능</br> 
+**4. column 명칭 + index 인덱스** : df[column_name][index]시 호출 가능</br></br>
+
+cf\) 인덱스 + 명칭 조합일 시 .loc[index, column명] 이렇게 사용하도록 pandas에서 권장함 (loc iloc 혼용 X)
 
 
 ## **Aggregation / Group by**
