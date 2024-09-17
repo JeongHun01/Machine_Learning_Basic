@@ -64,14 +64,14 @@ feature 간의 상관관계가 매우 높으면 분산이 커져서 오류에 �
 
 ## **Polynomial Regression**
 회귀식이 독립변수의 단항식이 아닌 다항식으로 표현되는 것을 지칭 </br></br>
-PolynomialFeatures 클래스로 원본 단항 feature들을 다항 feature들로 변환한 후, 이 세트를 LinearRegression 객체에 적용하는 방식 - sklearn.processing</br>
+PolynomialFeatures 클래스로 원본 단항 feature들을 다항 feature들로 변환한 후, 이 세트를 LinearRegression 객체에 적용하는 방식 - sklearn.processing / PolynomialFeatures</br>
 (원래 PolynomialFeatures는 원본 피처 데이터 세트를 기반으로 degree차수에 따른 다항식을 적용하여 새로운 피처들을 생성하는 feature engineering 기법 </br>
  ex, [x1, x2] degree = 3 일시 fit(data)으로 (x1 + x2)^3 식 전개에 대응하여 transform(data)을 통해 [1, x1, x2, x1^2, x2^2, x1^3, x1^2*x2, x1*x2^2, x2^3] 생성) </br>
 파라미터 - degree : 제곱수 / include_bias = 절편 유무 (default = True) 일반적으로 False일 시 성능이 좋아지는 경향 존재 </br>
 **사이킷런에서는 일반적으로 Pipeline 클래스를 이용하여 PolynomialFeatures 변환과 LinearRegression 학습/예측을 결합하여 다항 회귀를 구현** </br>
-다항 feature 변형 시, 회귀 계수가 늘어난다. 즉, 입력시 동일한 degree와 feature 개수의 데이터가 변환이 된 후에 들어가야지 본인 자리에 맞게 들어간다. 따라서 학습 데이터를 변형시켜 모델을 만들었다면, 이후 검증/테스트 데이터도 입력 전 변형시켜야한다. 이는 과정이 복잡하므로 pipeline을 이용해 한 번에 처리한다 </br></br>
+다항 feature 변형 시, 회귀 변수가 늘어난다. 즉, 입력시 동일한 degree와 feature 개수의 데이터가 변환이 된 후에 들어가야지 본인 자리에 맞게 들어간다. 따라서 학습 데이터를 변형시켜 모델을 만들었다면, 이후 검증/테스트 데이터도 입력 전 변형시켜야한다. 이는 과정이 복잡하므로 pipeline을 이용해 한 번에 처리한다 </br></br>
 
-**Pipeline** : 파라미터에 주어진 step들을 순차적으로 한 번에 실행 - sklearn.pipeline </br>
+**Pipeline** : 파라미터에 주어진 step들을 순차적으로 한 번에 실행 - sklearn.pipeline / Pipeline</br>
 파라미터에 step 순으로 tuple로 이루어진 list 대입 - tuple('step_name', 모델_클래스/객체) -> 이후 fit(feature, target) 진행 / predict()시 내부 transform 자동 적용 </br>
 개별 클래스 객체 접근 법 - pipeline_object.named_steps['step_name']시 해당 모델 객체 반환 </br>
 GirdsearchCV에 적용법 - param_grid = {'step_name__parameter(객체 변수 + _ 2개 + 파라미터)' : [parameter], . . .}형식으로 작성</br>
@@ -141,7 +141,7 @@ saga = sag와 유사한 최적화 방식이며 L1 정규화 가능 </br>
 추가적인 최적화 방식들은 구글링
 
 ## **Regression Tree**
-CART(Classification and Regression Tree) 알고리즘 사용 - 기존 Classfier 동일 모듈 / DecisionTreeRegressor(), RandomForestRegressor(), XGBRegresor, LGBMRegresor() </br>
+CART(Classification and Regression Tree) 알고리즘 사용 - 기존 Classfier 동일 모듈 / DecisionTreeRegressor(), RandomForestRegressor(), XGBRegressor, LGBMRegressor() </br>
 CART 회귀 트리는 분류와 유사하게 분할을 하며, 최종 분할이 완료된 후 각 분할 영역에 있는 데이터 결정값들의 평균값으로 학습/예측 </br>
 (feature 각각 평균값 이어서 회귀 식 생성), tree 구조이기에 overfitting 유의</br>
 
