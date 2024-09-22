@@ -1,0 +1,2 @@
+![Gradient Descent_1](https://github.com/user-attachments/assets/f2fcac63-9111-46c1-bdd9-768e54c61b7d)
+![Gradient Descent_2](https://github.com/user-attachments/assets/6428665c-8f62-4ea7-aae9-d669f5e12365)

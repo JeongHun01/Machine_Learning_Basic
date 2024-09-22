@@ -1,4 +1,3 @@
-![Linear Regression_1](https://github.com/user-attachments/assets/9ce62ac2-9a2c-48eb-b103-7197ed2f31e6)
-![Linear Regression_2](https://github.com/user-attachments/assets/b8d6b7a9-fddb-4c12-a94c-e0ab23958ba1)
-![Linear Regression_3](https://github.com/user-attachments/assets/c250585c-cce4-4715-86cb-742996575458)
-![Linear Regression_4](https://github.com/user-attachments/assets/cdefac2d-9007-447f-a6e2-488b5a16c874)
+![Linear Regression_1](https://github.com/user-attachments/assets/ce9ab7e4-99ea-40bf-929a-2881f19318b4)
+![Linear Regression_2](https://github.com/user-attachments/assets/243a12ce-6f82-4abc-9af8-0f74f988da00)
+![Linear Regression_3](https://github.com/user-attachments/assets/3aef3c6d-807c-4540-bb30-4d18763a1bfd)
